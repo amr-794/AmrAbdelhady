@@ -1,0 +1,267 @@
+/* الأساسيات العامة */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.8), rgba(0, 0, 0, 0.8)), url('space-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    animation: bgAnimation 15s ease infinite;
+    color: #ffffff;
+}
+
+/* حركة الخلفية */
+@keyframes bgAnimation {
+    0% { background-position: 0 0; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0 0; }
+}
+
+/* ترويسة الصفحة */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgb(0 210 255 / 73%);
+    margin-bottom: 30px;
+}
+.profile-picture img {
+    width: 200px; /* حجم الصورة */
+    height: auto;
+    border-radius: 50%;
+    filter: drop-shadow(0 4px 15px rgb(0 196 255 / 62%)); /* ظل للصورة */
+}
+
+/* عناوين الصفحة */
+h1 {
+    font-size: 3em;
+    color: #ffdf57;
+    text-shadow: 2px 2px 5px rgb(150 0 255 / 89%);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 20px 0;
+    color: #ff6f61; /* لون مخصص لعناوين القسم */
+    text-shadow: 1px 1px 5px rgb(9 228 255 / 70%);
+}
+
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.8em;
+    margin: 10px 0;
+    color: #84c0ff; /* لون مخصص لعناوين الملفات الصوتية والفيديو */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* زر التحديثات */
+.updates-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 15px 30px;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.updates-btn:hover {
+    background-color: #e55949;
+    transform: translateY(-3px);
+}
+/* روابط التواصل الاجتماعي */
+/* روابط التواصل الاجتماعي */
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.social-links li {
+    margin: 15px;
+    list-style: none;
+}
+
+.social-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5em;
+    position: relative;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    padding: 10px;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 15px #ffdd57;
+}
+.social-icon {
+    width: 45px; /* حجم الأيقونات */
+    height: auto;
+    margin-right: 20px;
+    transition: transform 0.3s; /* تأثير التحويل للأيقونات */
+}
+.social-links a:hover .social-icon {
+    transform: rotate(20deg); /* تدوير الأيقونات عند التمرير */
+}
+
+.social-links :hover {
+    color: #007BFF; /* تغيير لون النص عند التمرير */
+    transform: scale(1.05); /* تكبير طفيف */
+}
+
+
+
+/* صفحة التحديثات */
+.updates-page {
+    padding: 20px;
+    background: rgba(10, 10, 10, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* الأقسام */
+section {
+    margin: 35px 0;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.gallery, .audio-gallery, .video-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.photo img {
+    max-width: 300px;
+    border: 5px solid #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.photo img:hover {
+    transform: scale(1.05);
+}
+
+.audio-item, .video-item {
+    text-align: center;
+}
+
+.audio-item p, .video-item p {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.audio-item audio, .video-item video {
+    width: 300px;
+    border-radius: 10px;
+    border: 3px solid #00ffea;
+    transition: transform 0.3s ease-in-out;
+}
+
+.audio-item audio:hover, .video-item video:hover {
+    transform: scale(1.05);
+}
+
+/* الفاصل */
+.divider {
+    margin: 20px 0;
+    border: none;
+    height: 5px;
+    background: #e9ff0b;
+}
+
+/* فوتر */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(87, 81, 81, 0.685);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+h1, h2, h3 {
+    animation: glow 1s infinite alternate;
+}
+
+/* خلفية ديناميكية مع النجوم والشهب */
+@keyframes shootingStar {
+    0% { opacity: 0; transform: translateX(-100%); }
+    100% { opacity: 1; transform: translateX(100%); }
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* النجوم */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: starTwinkle 1.5s infinite alternate;
+}
+
+/* الشهب */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: goldenrod;
+    border-radius: 50%;
+    animation: shootingStar 2s linear infinite;
+}
+
+/* تحديد مواقع النجوم */
+@keyframes starPositions {
+    0% { top: 0; left: 0; }
+    100% { top: calc(100% - 10px); left: calc(100% - 10px); }
+}
+/* CSS لتحسين الأداء */
+.updates-section {
+    opacity: 0; /* البداية مخفية */
+    transform: translateY(60px); /* حركها للأسفل */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* تأثير السلاسة */
+}
+
+.updates-section.visible {
+    opacity: 1; /* عند ظهور القسم */
+    transform: translateY(0); /* العودة لمكانها */
+}
+.info p{
+    text-align: center;
+    color:#0dff0094;
+    font-size: 20px;
+}
+ 
+
+.info2 p{
+    text-align: center;
+    color:#0dff0094;
+    font-size: 20px;
+}
