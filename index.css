@@ -1,0 +1,168 @@
+/* الأساسيات العامة */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(180deg, rgba(4, 9, 73, 0.842), rgb(68, 5, 5));
+    background-size: cover;
+    animation: bgAnimation 15s ease infinite;
+    color: #ffffff;
+}
+
+/* ترويسة الصفحة */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.945);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgb(0 210 255 / 73%);
+    margin-bottom: 30px;
+}
+.profile-picture img {
+    width: 220px; /* حجم الصورة */
+    height: auto;
+    border-radius: 50%;
+    filter: drop-shadow(0 4px 15px rgb(0 196 255 / 62%)); /* ظل للصورة */
+}
+header nav {
+    color: #000;;
+ }
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    display:inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+/* عناوين الصفحة */
+h1 {
+    font-size: 3em;
+    color: #ffdf57;
+    text-shadow: 2px 2px 5px rgb(150 0 255 / 89%);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 20px 0;
+    color: #ff6f61; /* لون مخصص لعناوين القسم */
+    text-shadow: 1px 1px 5px rgb(9 228 255 / 70%);
+}
+
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.8em;
+    margin: 10px 0;
+    color: #94efff; /* لون مخصص لعناوين الملفات الصوتية والفيديو */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* زر التحديثات */
+.updates-btn {
+    font-family: 'Raleway', sans-serif;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 2% 4%;
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: none;
+    border-radius: 30%;
+    cursor: pointer;
+    font-size: 90%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(200, 255, 0, 0.801);
+}
+
+.updates-btn:hover {
+    background-color: #e55949;
+    transform: translateY(-3px);
+}
+
+/* روابط التواصل الاجتماعي */
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.social-links li {
+    margin: 15px;
+    list-style: none;
+}
+
+.social-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5em;
+    position: relative;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    padding: 10px;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 15px #ffdd57;
+}
+.social-icon {
+    width: 45px; /* حجم الأيقونات */
+    height: auto;
+    margin-right: 20px;
+    transition: transform 0.3s; /* تأثير التحويل للأيقونات */
+}
+.social-links a:hover .social-icon {
+    transform: rotate(20deg); /* تدوير الأيقونات عند التمرير */
+}
+
+/* فوتر */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(87, 81, 81, 0.685);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+h1, h2, h3 {
+    animation: glow 1s infinite alternate;
+}
+
+/* CSS لتحسين الأداء */
+.updates-section {
+    opacity: 0; /* البداية مخفية */
+    transform: translateY(60px); /* حركها للأسفل */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* تأثير السلاسة */
+}
+
+.updates-section.visible {
+    opacity: 1; /* عند ظهور القسم */
+    transform: translateY(0); /* العودة لمكانها */
+}
+.info p{
+    text-align: center;
+    color:#0dff0094;
+    font-size: 20px;
+}
+ 
