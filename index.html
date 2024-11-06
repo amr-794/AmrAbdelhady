@@ -11,12 +11,46 @@
 </head>
 <body>
     <header>
+
+        <div class="dropdown-container">
+            <button class="menu-button" id="menuButton">
+                <span class="menu-icon"></span>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="updates.html" class="menu-item lightgreen">My updates</a>
+                <a href="QR Code/index.html" class="menu-item brightyellow">QR code creator</a>
+                <a href="Digital Number Converter/index.html" class="menu-item brightyellow">Digital Number Converter</a>
+            </div>
+        </div>
+    
+        <script>
+            const menuButton = document.getElementById('menuButton');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+    
+            // Toggle menu visibility when button is clicked
+            menuButton.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent event from propagating to document
+                dropdownMenu.classList.toggle('show');
+                menuIcon.classList.toggle('active');
+            });
+    
+            // Close menu if clicked outside
+            document.addEventListener('click', function(event) {
+                if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                    menuIcon.classList.remove('active');
+                }
+            });
+        </script>
+        
         <div class="profile-picture">
             <img src="my pic.jpg" alt="صورة شخصية" />
         </div>
         <h1>Hi there<br> Welcome to my website.</h1>
         <p></p>
-        <button class="updates-btn" onclick="window.location.href='updates.html'">Updates</button>
+        
+        
     </header>
     <main>
         <h2>My social media links ...
@@ -24,25 +58,25 @@
         <ul class="social-links">
             <li>
                 <a href="https://www.facebook.com/qr?id=61551830860947" target="_blank">
-                    <img src="facebook.png" alt="فيس بوك" class="social-icon" />
+                    <img src="social icons/facebook.png" alt="فيس بوك" class="social-icon" />
                     
                 </a>
             </li>
             <li>
                 <a href="https://wa.me/+201115025600" target="_blank">
-                    <img src="whatsapp.png" alt="واتس أب" class="social-icon" />
+                    <img src="social icons/whatsapp.png" alt="واتس أب" class="social-icon" />
                    
                 </a>
             </li>
             <li>
                 <a href="mailto:amrabdelhady794@gmail.com">
-                    <img src="gmail.png" alt="جيميل" class="social-icon" />
+                    <img src="social icons/gmail.png" alt="جيميل" class="social-icon" />
                     
                 </a>
             </li>
             <li>
                 <a href="https://www.instagram.com/amr_abdelhady_7_9_4/profilecard/?igsh=amk4ZWFqdjlqdmcz" target="_blank">
-                    <img src="insta.png" alt="إنستغرام" class="social-icon" />
+                    <img src="social icons/insta.png" alt="إنستغرام" class="social-icon" />
                     
                 </a>
             </li>
@@ -55,6 +89,6 @@
         <p>All rights reserved © 2024</p>
         <p>Developed by Amr Abdel-hady 💖</p>
     </footer>
-    <script src="script.js"></script>
+    <script src="script/script.js"></script>
 </body>
 </html>
