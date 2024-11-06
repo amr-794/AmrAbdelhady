@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR code creator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
+</head>
+<body>
+
+  <div class="background-animation"></div>
+
+  <div class="container">
+    <h1>QR code creator</h1>
+    <p>Enter you text</p>
+    
+    <!-- حقل إدخال النص -->
+    <div class="input-section">
+      <label for="text-input">Text</label>
+      <input type="text" id="text-input" placeholder="Enter your text here..." oninput="updateQRCode()">
+    </div>
+
+    <!-- خيارات التخصيص -->
+    <div class="customization-section">
+      <div class="color-options">
+        <label>Foreground-color</label>
+        <input type="color" id="foreground-color" value="#000000" oninput="updateQRCode()">
+        
+        <label>Background-color<label>
+        <input type="color" id="background-color" value="#ffffff" oninput="updateQRCode()">
+      </div>
+      
+      <div class="shape-options">
+        <label>Shape-options</label>
+        <select id="dots-shape" onchange="updateQRCode()">
+          <option value="dots">Dots</option>
+          <option value="rounded">Circle</option>
+          <option value="classy">Classic</option>
+          <option value="square">Square</option>
+          <option value="extra-rounded">Cycled</option>
+        </select>
+
+        <label>Eye-shape</label>
+        <select id="eye-shape" onchange="updateQRCode()">
+          <option value="square">Square</option>
+          <option value="circle">Circle</option>
+          <option value="dots">Dots</option>
+        </select>
+      </div>
+
+      <div class="border-options">
+        <label>Border-options</label>
+        <input type="color" id="border-color" value="#000000" oninput="updateQRCode()">
+
+        <label>Border-width</label>
+        <input type="number" id="border-width" value="0" oninput="updateQRCode()">
+      </div>
+
+      <div class="shadow-options">
+        <label>Shadow-effect</label>
+        <select id="shadow-effect" onchange="updateQRCode()">
+          <option value="none">None</option>
+          <option value="shadow">Shadow</option>
+          <option value="glow">Glow</option>
+        </select>
+      </div>
+      
+      <div class="font-options">
+        <label>Font-options</label>
+        <select id="font-family" onchange="updateQRCode()">
+          <option value="Arial">Arial</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Tahoma">Tahoma</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- عرض QR Code -->
+    <div id="qr-code" class="qr-code"></div>
+
+    <!-- أزرار التنزيل والمشاركة -->
+    <div class="actions">
+      <button onclick="downloadQRCode('png')"> Download PNG (Recommended)</button>
+      <button onclick="downloadQRCode('jpeg')">Download JPEG</button>
+      <button onclick="downloadQRCode('svg')">Download SVG</button>
+      <button onclick="shareQRCode()">Share</button>
+    </div>
+
+    <div class="preview-section">
+      <h2>Testing QR Code</h2>
+      <p> ............</p>
+      <div id="preview" class="qr-preview"></div>
+    </div>
+  </div>
+  <footer>
+    <p>جميع الحقوق محفوظة © 2024</p>
+    <p>Developed by Amr Abdel-hady 💖</p>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

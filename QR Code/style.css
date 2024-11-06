@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+}
+
+.background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 223, 186, 0.5), rgba(255, 175, 189, 0.8));
+  animation: animateBackground 10s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes animateBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px;
+  margin: 5% auto;
+  overflow-y: auto;
+}
+
+h1 {
+  font-size: 22px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #444;
+}
+
+p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-section, .customization-section {
+  margin: 15px 0;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0 5px;
+  font-size: 14px;
+}
+
+input[type="text"], select, input[type="color"], input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, select:focus, input[type="color"]:focus, input[type="number"]:focus {
+  border-color: #4CAF50;
+}
+
+.qr-code, .qr-preview {
+  margin-top: 20px;
+  padding: 10px;
+  display: inline-block;
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  width: 100%; /* التأكد من أن الرمز يملأ العرض بالكامل */
+  max-width: 300px; /* الحد الأقصى للعرض */
+  height: auto;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+button {
+  background: #4CAF50;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+.preview-section {
+  margin-top: 30px;
+}
+/* فوتر */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(87, 81, 81, 0.685);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  margin: 5px 0;
+}

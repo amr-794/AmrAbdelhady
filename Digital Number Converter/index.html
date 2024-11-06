@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محول الأرقام الرقمية</title>
+    <style>
+        /* إعدادات الخلفية */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        /* إعدادات الحاوية */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            width: 90%;
+            box-sizing: border-box;
+            animation: fadeIn 1.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* إعدادات العناوين */
+        h3 {
+            background: #333;
+            color: #ffdd57;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* إعدادات الإدخالات */
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ffdd57;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: 0.3s ease;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            border-color: #ff6347;
+            box-shadow: 0 0 10px rgba(255, 99, 71, 0.5);
+            outline: none;
+        }
+
+        /* إعدادات الجدول */
+        .table-container {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: linear-gradient(to right, #ffdd57, #ff6347);
+            color: #333;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #fff;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        th {
+            background: #333;
+            color: #ffdd57;
+        }
+
+        /* تأثير hover على الخلايا */
+        td:hover {
+            background: #ff6347;
+            color: #fff;
+            transform: scale(1.03);
+            transition: 0.3s ease;
+        }
+
+        /* إعدادات للأجهزة الصغيرة */
+        @media (max-width: 600px) {
+            h3 {
+                font-size: 16px;
+                padding: 8px;
+            }
+            input[type="text"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+            table {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="conversion-form">
+        <h3>Decimal</h3>
+        <input type="text" id="decimal" placeholder="أدخل الرقم العشري" oninput="convertFromDecimal()">
+
+        <h3>Octal</h3>
+        <input type="text" id="octal" placeholder="أدخل الرقم الثماني" oninput="convertFromOctal()">
+
+        <h3>Hexadecimal</h3>
+        <input type="text" id="hexadecimal" placeholder="أدخل الرقم السداسي عشر" oninput="convertFromHex()">
+
+        <h3>Binary</h3>
+        <input type="text" id="binary" placeholder="أدخل الرقم الثنائي" oninput="convertFromBinary()">
+    </div>
+
+    <div class="table-container">
+        <h3>تحويل الأرقام</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Binary<br>(Base-2)</th>
+                    <th>Decimal<br>(Base-10)</th>
+                    <th>Octal<br>(Base-8)</th>
+                    <th>Hexadecimal<br>(Base-16)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows 0-20 with conversions -->
+                <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                <tr><td>10</td><td>2</td><td>2</td><td>2</td></tr>
+                <tr><td>11</td><td>3</td><td>3</td><td>3</td></tr>
+                <tr><td>100</td><td>4</td><td>4</td><td>4</td></tr>
+                <!-- Add more rows as needed -->
+                <tr><td>10100</td><td>20</td><td>24</td><td>14</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function convertFromDecimal() {
+        const decimal = document.getElementById("decimal").value;
+        document.getElementById("binary").value = parseInt(decimal).toString(2);
+        document.getElementById("octal").value = parseInt(decimal).toString(8);
+        document.getElementById("hexadecimal").value = parseInt(decimal).toString(16).toUpperCase();
+    }
+
+    function convertFromBinary() {
+        const binary = document.getElementById("binary").value;
+        const decimal = parseInt(binary, 2);
+        document.getElementById("decimal").value = decimal;
+        document.getElementById("octal").value = decimal.toString(8);
+        document.getElementById("hexadecimal").value = decimal.toString(16).toUpperCase();
+    }
+
+    function convertFromOctal() {
+        const octal = document.getElementById("octal").value;
+        const decimal = parseInt(octal, 8);
+        document.getElementById("decimal").value = decimal;
+        document.getElementById("binary").value = decimal.toString(2);
+        document.getElementById("hexadecimal").value = decimal.toString(16).toUpperCase();
+    }
+
+    function convertFromHex() {
+        const hex = document.getElementById("hexadecimal").value;
+        const decimal = parseInt(hex, 16);
+        document.getElementById("decimal").value = decimal;
+        document.getElementById("binary").value = decimal.toString(2);
+        document.getElementById("octal").value = decimal.toString(8);
+    }
+</script>
+
+
+</body>
+</html>
