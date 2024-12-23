@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة التعريف الشخصي</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+
+        <div class="dropdown-container">
+            <button class="menu-button" id="menuButton">
+                <span class="menu-icon"></span>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="updates.html" class="menu-item lightgreen">My updates</a>
+                <a href="app/index.html" class="menu-item lightgreen">Download my app</a>
+                <a href="Quran me/Me/index.html" class="menu-item lightgreen">القرآن الكريم بصوتي💖</a>
+                <a href="qur'an/index.html" class="menu-item lightgreen">القرآن الكريم بصوت الشيخ ياسر الدوسري💖</a>
+                <a href="QR Code/index.html" class="menu-item brightyellow">QR code creator</a>
+                <a href="Digital Number Converter/index.html" class="menu-item brightyellow">Digital Number Converter</a>
+
+            </div>
+        </div>
+    
+        <script>
+            const menuButton = document.getElementById('menuButton');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+    
+            // Toggle menu visibility when button is clicked
+            menuButton.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent event from propagating to document
+                dropdownMenu.classList.toggle('show');
+                menuIcon.classList.toggle('active');
+            });
+    
+            // Close menu if clicked outside
+            document.addEventListener('click', function(event) {
+                if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                    menuIcon.classList.remove('active');
+                }
+            });
+        </script>
+        
+        <div class="profile-picture">
+            <img src="my pic.jpg" alt="صورة شخصية" />
+        </div>
+        <h1>Hi there<br> Welcome to my website.</h1>
+        <h5 class="amr">اللهم لا تؤاخذني بما يقولون, واغفر لي ما لا يعلمون, واجعلني خيرًا مما يظنون.</h5>
+        <p></p>
+        
+        
+    </header>
+    <main>
+        <h2>My social media links ...
+        </h2>
+        <ul class="social-links">
+            <li>
+                <a href="https://www.facebook.com/qr?id=61551830860947" target="_blank">
+                    <img src="social icons/facebook.png" alt="فيس بوك" class="social-icon" />
+                    
+                </a>
+            </li>
+            <li>
+                <a href="https://wa.me/+201115025600" target="_blank">
+                    <img src="social icons/whatsapp.png" alt="واتس أب" class="social-icon" />
+                   
+                </a>
+            </li>
+            <li>
+                <a href="mailto:amrabdelhady794@gmail.com">
+                    <img src="social icons/gmail.png" alt="جيميل" class="social-icon" />
+                    
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/amr_abdelhady_7_9_4/profilecard/?igsh=amk4ZWFqdjlqdmcz" target="_blank">
+                    <img src="social icons/insta.png" alt="إنستغرام" class="social-icon" />
+                    
+                </a>
+            </li>
+        </ul>
+    </main>
+    <ul class="info">
+       <p>please contact me if there is any problem with the website.</p>
+    </ul>
+    <footer>
+        <p>All rights reserved © 2024</p>
+        <p>Developed by Amr Abdel-hady 💖</p>
+    </footer>
+    <script src="script/script.js"></script>
+</body>
+</html>
