@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الصوتيات الخاصة بي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 2em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header a {
+            position: absolute;
+            top: 2;
+            left: 1%;
+            text-decoration: none;
+            font-size: 0.6em;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            header a {
+                font-size: 0.9em;
+                padding: 10px 15px;
+            }
+        }
+
+        header a:hover {
+            transform: scale(1.1);
+            background-color: #ff4a4a;
+        }
+
+        .container {
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .audio-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .audio-item {
+            background: linear-gradient(135deg, #ff6b6b, #ffcc70);
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .audio-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .audio-item h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .audio-item audio {
+            width: 100%;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .like-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .like-button i {
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .like-button:hover i {
+            transform: scale(1.2);
+            color: #ff4a4a;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>صفحة الصوتيات الخاصة بي
+        <a href="../../index.html" class="main-page">الصفحة الرئيسية</a>
+    </header>
+
+    <div class="container">
+        <div class="audio-list">
+            <div class="audio-item">
+                <h3>سورة الحديد</h3>
+                <audio controls>
+                    <source src="audio/الحديد.mp3" type="audio/mpeg">
+                    المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="like-button" data-audio="الحديد">
+                    <i class="fas fa-heart"></i>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+
+            <div class="audio-item">
+                <h3>آذان من مسجد عمر بن عبد العزيز</h3>
+                <audio controls>
+                    <source src="audio/آذان.mp3" type="audio/mpeg">
+                    المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="like-button" data-audio="آذان">
+                    <i class="fas fa-heart"></i>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+
+            <div class="audio-item">
+                <h3>سورة الواقعة</h3>
+                <audio controls>
+                    <source src="audio/الواقعة.mp3" type="audio/mpeg">
+                    المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="like-button" data-audio="الواقعة">
+                    <i class="fas fa-heart"></i>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>حقوق الطبع والنشر &copy; 2024 - Amoora💖</footer>
+
+    <script>
+        const likeButtons = document.querySelectorAll('.like-button');
+
+        likeButtons.forEach(button => {
+            const audioId = button.getAttribute('data-audio');
+            const likeCount = button.querySelector('.like-count');
+            const storedLikes = localStorage.getItem(`like-${audioId}`);
+
+            if (storedLikes) {
+                likeCount.textContent = storedLikes;
+                button.classList.add('liked');
+            }
+
+            button.addEventListener('click', () => {
+                if (!button.classList.contains('liked')) {
+                    button.classList.add('liked');
+                    const currentLikes = parseInt(likeCount.textContent);
+                    likeCount.textContent = currentLikes + 1;
+                    localStorage.setItem(`like-${audioId}`, likeCount.textContent);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
