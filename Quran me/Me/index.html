@@ -16,48 +16,118 @@
         }
 
         header {
-            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            width: 97%;
+            background-color: rgba(0, 0, 0, 0.9);
             color: #ffffff;
-            text-align: center;
-            padding: 20px;
-            font-size: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
         }
 
-        header a {
-            position: absolute;
-            top: 2;
-            left: 1%;
+        header .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header .main-page {
             text-decoration: none;
-            font-size: 0.6em;
             background-color: #ff6b6b;
             color: white;
-            padding: 15px 20px;
+            padding: 10px 15px;
+            font-size: 1em;
             border-radius: 5px;
             transition: transform 0.3s, background-color 0.3s;
         }
 
-        @media (max-width: 768px) {
-            header a {
-                font-size: 0.9em;
-                padding: 10px 15px;
-            }
-        }
-
-        header a:hover {
+        header .main-page:hover {
             transform: scale(1.1);
             background-color: #ff4a4a;
         }
 
+        header .page-title {
+            font-size: 1.5em;
+            color: #ffd700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #ffd700;
+            font-size: 1em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        @media (min-width: 769px) {
+            header nav {
+                margin-right: auto; /* يجعل الأزرار في المنتصف */
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header .header-left {
+                margin-bottom: 10px;
+            }
+
+            header .main-page {
+                font-size: 0.8em;
+                padding: 8px 12px;
+            }
+
+            header nav {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            header nav a {
+                font-size: 0.9em;
+                padding: 8px 10px;
+            }
+
+            header .page-title {
+                font-size: 1.2em;
+            }
+        }
+
         .container {
-            padding: 40px;
-            text-align: center;
+            padding: 120px 20px 40px;
             animation: fadeIn 2s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
         }
 
         .audio-list {
@@ -82,120 +152,160 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .audio-item h3 {
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        }
-
-        .audio-item audio {
-            width: 100%;
-            outline: none;
-            border: none;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .like-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            cursor: pointer;
-            color: #ffffff;
-            font-size: 1.5em;
-            margin-top: 10px;
-        }
-
-        .like-button i {
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        .like-button:hover i {
-            transform: scale(1.2);
-            color: #ff4a4a;
-        }
-
         footer {
             background-color: rgba(0, 0, 0, 0.8);
             color: #ffffff;
             text-align: center;
             padding: 20px;
+        }
+
+        #scrollToTop {
             position: fixed;
-            bottom: 0;
-            width: 100%;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffd700;
+            color: #000;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        #scrollToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scrollToTop:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-    <header>صفحة الصوتيات الخاصة بي
-        <a href="../../index.html" class="main-page">الصفحة الرئيسية</a>
+    <header>
+        <div class="header-left">
+            <a href="../../index.html" class="main-page">الصفحة الرئيسية</a>
+            <span class="page-title">صفحة الصوتيات الخاصة بي</span>
+        </div>
+        <nav>
+            <a href="#quran-section">قسم التلاوات العشوائية</a>
+            <a href="#mosque-section">قسم تلاوات الصلوات</a>
+        </nav>
     </header>
 
     <div class="container">
-        <div class="audio-list">
-            <div class="audio-item">
-                <h3>سورة الحديد</h3>
-                <audio controls>
-                    <source src="audio/الحديد.mp3" type="audio/mpeg">
-                    المتصفح الخاص بك لا يدعم تشغيل الصوت.
-                </audio>
-                <div class="like-button" data-audio="الحديد">
-                    <i class="fas fa-heart"></i>
-                    <span class="like-count">0</span>
+        <div class="category" id="quran-section">
+
+
+            <h2 class="category-title">قسم التلاوات العشواية</h2>
+
+
+
+            <div class="audio-list">
+                <div class="audio-item">
+                    <h3>سورة الحديد</h3>
+                    <audio controls>
+                        <source src="audio/الحديد.mp3" type="audio/mpeg">
+                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                    </audio>
+                </div>
+
+
+                <div class="audio-item">
+                    <h3>سورة الواقعة</h3>
+                    <audio controls>
+                        <source src="audio/الواقعة.mp3" type="audio/mpeg">
+                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                    </audio>
                 </div>
             </div>
+        </div>
 
-            <div class="audio-item">
-                <h3>آذان من مسجد عمر بن عبد العزيز</h3>
-                <audio controls>
-                    <source src="audio/آذان.mp3" type="audio/mpeg">
-                    المتصفح الخاص بك لا يدعم تشغيل الصوت.
-                </audio>
-                <div class="like-button" data-audio="آذان">
-                    <i class="fas fa-heart"></i>
-                    <span class="like-count">0</span>
-                </div>
-            </div>
+        <div class="category" id="mosque-section">
 
-            <div class="audio-item">
-                <h3>سورة الواقعة</h3>
-                <audio controls>
-                    <source src="audio/الواقعة.mp3" type="audio/mpeg">
-                    المتصفح الخاص بك لا يدعم تشغيل الصوت.
-                </audio>
-                <div class="like-button" data-audio="الواقعة">
-                    <i class="fas fa-heart"></i>
-                    <span class="like-count">0</span>
+
+            <h2 class="category-title">قسم تلاوات الصلوات</h2>
+
+
+
+            <div class="audio-list">
+
+                <div class="audio-item">
+                    <h3>صلاة الفجر | سورتي القيامة و الفيل</h3>
+                    <P>2025/JAN/5
+                        <br> مسجد عمر بن عبد العزيز
+                         <br>تعطل الميكروفون في الركعة الثانية
+                    </P>
+                    <audio controls>
+                        <source src="audio/Jan 10,  الفجر الياسمين معدل (قَطْعٌ فقط).mp3" type="audio/mpeg">
+                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                    </audio>
                 </div>
+
+                <div class="audio-item">
+                    <h3>آذان من مسجد عمر بن عبد العزيز</h3>
+                    <audio controls>
+                        <source src="audio/آذان.mp3" type="audio/mpeg">
+                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                    </audio>
+                </div>
+
+                <div class="audio-item">
+                    <h3>صلاة العشاء | ما تيسر من سورة الواقعة</h3>
+                    <p>مسجد التوبة
+                        <br>2024/oct/10
+                    </p>
+                    <audio controls>
+                        <source src="audio/الواقعة_مسجد التوبة_صلاة العشاء.mp3" type="audio/mpeg">
+                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
+                    </audio>
+                </div>
+
+
             </div>
         </div>
     </div>
 
     <footer>حقوق الطبع والنشر &copy; 2024 - Amoora💖</footer>
 
+    <button id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-        const likeButtons = document.querySelectorAll('.like-button');
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-        likeButtons.forEach(button => {
-            const audioId = button.getAttribute('data-audio');
-            const likeCount = button.querySelector('.like-count');
-            const storedLikes = localStorage.getItem(`like-${audioId}`);
+        const scrollToTopButton = document.getElementById('scrollToTop');
 
-            if (storedLikes) {
-                likeCount.textContent = storedLikes;
-                button.classList.add('liked');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                scrollToTopButton.classList.add('show');
+            } else {
+                scrollToTopButton.classList.remove('show');
             }
+        });
 
-            button.addEventListener('click', () => {
-                if (!button.classList.contains('liked')) {
-                    button.classList.add('liked');
-                    const currentLikes = parseInt(likeCount.textContent);
-                    likeCount.textContent = currentLikes + 1;
-                    localStorage.setItem(`like-${audioId}`, likeCount.textContent);
-                }
+        scrollToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
     </script>
