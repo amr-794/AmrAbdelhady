@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشيخ ياسر الدوسري</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* الأنماط الأساسية */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            color: #fff;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+            color: #ecf0f1;
+        }
+
+        /* الترويسة الثابتة */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border-bottom: 3px solid #ff6f61;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.5s ease;
+        }
+
+        header.dark-mode {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 1rem;
+            margin-top: 5px;
+            color: #ecf0f1;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+
+        /* زر الوضع المظلم */
+        .dark-mode-toggle {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-mode-toggle:hover {
+            background: #ff3b2f;
+            transform: scale(1.1);
+        }
+
+        .dark-mode-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .dark-mode-toggle i {
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .dark-mode-toggle .fa-moon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .dark-mode-toggle .fa-sun {
+            opacity: 0;
+            transform: rotate(180deg);
+        }
+
+        body.dark-mode .dark-mode-toggle .fa-moon {
+            opacity: 0;
+            transform: rotate(-180deg);
+        }
+
+        body.dark-mode .dark-mode-toggle .fa-sun {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        /* زر الصفحة الرئيسية */
+        .main-page {
+            background: #ff6f61;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-page:hover {
+            background: #ff3b2f;
+        }
+
+        /* بقية الأنماط */
+        .surah-list {
+            margin: 100px auto 40px;
+            padding: 0;
+            width: 90%;
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70%, 1fr));
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .surah-list li {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 5px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #ecf0f1;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .surah-list li:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .surah-list li.dark-mode {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .audio-player {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .audio-player.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .custom-audio-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .custom-audio-player audio {
+            width: 100%;
+            border-radius: 10px;
+            background: #2c3e50;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .custom-audio-player audio::-webkit-media-controls-panel {
+            background-color: #2c3e50;
+            border-radius: 10px;
+        }
+
+        .custom-audio-player audio::-webkit-media-controls-play-button,
+        .custom-audio-player audio::-webkit-media-controls-mute-button,
+        .custom-audio-player audio::-webkit-media-controls-timeline,
+        .custom-audio-player audio::-webkit-media-controls-current-time-display,
+        .custom-audio-player audio::-webkit-media-controls-time-remaining-display,
+        .custom-audio-player audio::-webkit-media-controls-volume-slider {
+            filter: invert(1);
+        }
+
+        .custom-audio-player .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .custom-audio-player .controls button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .custom-audio-player .controls button:hover {
+            background: #ff3b2f;
+        }
+
+        /* الـ footer */
+footer {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    border-radius: 0 0 10px 10px;
+    z-index: 1;
+    transition: background-color 0.5s ease;
+    margin-top: auto; /* هذا يضمن أن الـ footer يبقى في الأسفل */
+}
+
+footer.dark-mode {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.watermark {
+    position: relative;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    opacity: 0.4;
+    font-weight: bold;
+}
+
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 15px;
+    font-size: 2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ff6f61;
+    transform: scale(1.2);
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html" class="main-page">
+        الصفحة الرئيسية
+    </a>
+    <h1>(ياسر الدوسري)</h1>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+</header>
+
+<!-- قائمة السور مع مشغلات الصوت -->
+<ul class="surah-list">
+    <ul>
+        <!-- السورة 1 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/001.mp3', this)">الفاتحة</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 2 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/002.mp3', this)">البقرة</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 3 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/003.mp3', this)">آل عمران</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 4 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/004.mp3', this)">النساء</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 5 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/005.mp3', this)">المائدة</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 6 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/006.mp3', this)">الأنعام</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 7 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/007.mp3', this)">الأعراف</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 8 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/008.mp3', this)">الأنفال</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 9 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/009.mp3', this)">التوبة</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 10 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/010.mp3', this)">يونس</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 11 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/011.mp3', this)">هود</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 12 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/012.mp3', this)">يوسف</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 13 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/013.mp3', this)">الرعد</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 14 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/014.mp3', this)">إبراهيم</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 15 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/015.mp3', this)">الحجر</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 16 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/016.mp3', this)">النحل</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 17 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/017.mp3', this)">الإسراء</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 18 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/018.mp3', this)">الكهف</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 19 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/019.mp3', this)">مريم</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 20 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/020.mp3', this)">طه</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 21 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/021.mp3', this)">الأنبياء</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 22 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/022.mp3', this)">الحج</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 23 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/023.mp3', this)">المؤمنون</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 24 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/024.mp3', this)">النور</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 25 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/025.mp3', this)">الفرقان</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 26 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/026.mp3', this)">الشعراء</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 27 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/027.mp3', this)">النمل</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 28 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/028.mp3', this)">القصص</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 29 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/029.mp3', this)">العنكبوت</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 30 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/030.mp3', this)">الروم</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 31 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/031.mp3', this)">لقمان</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- السورة 32 -->
+        <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/032.mp3', this)">السجدة</li>
+        <div class="audio-player">
+            <div class="custom-audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="" type="audio/mp3">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+                <div class="controls">
+                    <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                    <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                    <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+        </div>
+    
+            <!-- السورة 33 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/033.mp3', this)">الأحزاب</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 34 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/034.mp3', this)">سبأ</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 35 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/035.mp3', this)">فاطر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 36 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/036.mp3', this)">يس</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 37 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/037.mp3', this)">الصافات</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 38 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/038.mp3', this)">ص</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 39 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/039.mp3', this)">الزمر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 40 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/040.mp3', this)">غافر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 41 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/041.mp3', this)">فصلت</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 42 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/042.mp3', this)">الشورى</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 43 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/043.mp3', this)">الزخرف</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 44 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/044.mp3', this)">الدخان</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 45 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/045.mp3', this)">الجاثية</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 46 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/046.mp3', this)">الأحقاف</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 47 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/047.mp3', this)">محمد</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 48 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/048.mp3', this)">الفتح</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 49 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/049.mp3', this)">الحجرات</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 50 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/050.mp3', this)">ق</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 51 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/051.mp3', this)">الذاريات</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 52 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/052.mp3', this)">الطور</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 53 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/053.mp3', this)">النجم</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 54 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/054.mp3', this)">القمر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 55 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/055.mp3', this)">الرحمن</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 56 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/056.mp3', this)">الواقعة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 57 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/057.mp3', this)">الحديد</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 58 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/058.mp3', this)">المجادلة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 59 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/059.mp3', this)">الحشر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 60 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/060.mp3', this)">الممتحنة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 61 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/061.mp3', this)">الصف</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 62 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/062.mp3', this)">الجمعة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 63 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/063.mp3', this)">المنافقون</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 64 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/064.mp3', this)">التغابن</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 65 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/065.mp3', this)">الطلاق</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 66 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/066.mp3', this)">التحريم</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 67 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/067.mp3', this)">الملك</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 68 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/068.mp3', this)">القلم</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 69 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/069.mp3', this)">الحاقة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 70 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/070.mp3', this)">المعارج</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 71 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/071.mp3', this)">نوح</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 72 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/072.mp3', this)">الجن</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 73 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/073.mp3', this)">المزمل</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 74 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/074.mp3', this)">المدثر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 75 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/075.mp3', this)">القيامة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 76 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/076.mp3', this)">الإنسان</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 77 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/077.mp3', this)">المرسلات</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 78 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/078.mp3', this)">النبأ</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 79 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/079.mp3', this)">النازعات</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 80 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/080.mp3', this)">عبس</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 81 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/081.mp3', this)">التكوير</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 82 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/082.mp3', this)">الإنفطار</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 83 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/083.mp3', this)">المطففين</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 84 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/084.mp3', this)">الإنشقاق</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 85 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/085.mp3', this)">البروج</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 86 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/086.mp3', this)">الطارق</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 87 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/087.mp3', this)">الأعلى</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 88 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/088.mp3', this)">الغاشية</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 89 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/089.mp3', this)">الفجر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 90 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/090.mp3', this)">البلد</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 91 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/091.mp3', this)">الشمس</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 92 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/092.mp3', this)">الليل</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 93 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/093.mp3', this)">الضحى</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 94 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/094.mp3', this)">الشرح</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 95 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/095.mp3', this)">التين</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 96 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/096.mp3', this)">العلق</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 97 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/097.mp3', this)">القدر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 98 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/098.mp3', this)">البينة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 99 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/099.mp3', this)">الزلزلة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 100 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/100.mp3', this)">العاديات</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 101 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/101.mp3', this)">القارعة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 102 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/102.mp3', this)">التكاثر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 103 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/103.mp3', this)">العصر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 104 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/104.mp3', this)">الهمزة</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 105 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/105.mp3', this)">الفيل</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 106 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/106.mp3', this)">قريش</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 107 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/107.mp3', this)">الماعون</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 108 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/108.mp3', this)">الكوثر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 109 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/109.mp3', this)">الكافرون</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 110 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/110.mp3', this)">النصر</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 111 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/111.mp3', this)">المسد</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 112 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/112.mp3', this)">الإخلاص</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 113 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/113.mp3', this)">الفلق</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السورة 114 -->
+    <li onclick="showAudioPlayer('https://listen.ourquraan.com/Yasser_Aldosari/114.mp3', this)">الناس</li>
+    <div class="audio-player">
+        <div class="custom-audio-player">
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <div class="controls">
+                <button onclick="skipBackward()"><i class="fas fa-backward"></i></button>
+                <button onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skipForward()"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- يمكنك إضافة المزيد من السور هنا بنفس الطريقة -->
+</ul>
+
+<footer>
+    <div class="watermark">عمرو عبد الهادي</div>
+    <div class="social-icons">
+        <a href="https://www.facebook.com/qr?id=61551830860947" class="fab fa-facebook"></a>
+        <a href="https://www.instagram.com/amr_abdelhady_7_9_4/profilecard/?igsh=amk4ZWFqdjlqdmcz" class="fab fa-instagram"></a>
+        <a href="https://wa.me/+201115025600" class="fab fa-whatsapp"></a>
+    </div>
+</footer>
+
+<script>
+    let currentAudioPlayer = null;
+    let currentAudioElement = null;
+    let isPlaying = false;
+
+    function showAudioPlayer(link, element) {
+        if (currentAudioElement) {
+            currentAudioElement.pause();
+            isPlaying = false;
+            updatePlayPauseButton();
+        }
+
+        if (currentAudioPlayer) {
+            currentAudioPlayer.style.display = 'none';
+            currentAudioPlayer.classList.remove('active');
+        }
+
+        const audioPlayer = element.nextElementSibling;
+        audioPlayer.style.display = 'block';
+        audioPlayer.classList.add('active');
+        currentAudioPlayer = audioPlayer;
+
+        const audioElement = audioPlayer.querySelector('audio');
+        audioElement.src = link;
+        audioElement.play();
+        currentAudioElement = audioElement;
+        isPlaying = true;
+        updatePlayPauseButton();
+    }
+
+    function togglePlayPause() {
+        if (currentAudioElement) {
+            if (isPlaying) {
+                currentAudioElement.pause();
+            } else {
+                currentAudioElement.play();
+            }
+            isPlaying = !isPlaying;
+            updatePlayPauseButton();
+        }
+    }
+
+    function updatePlayPauseButton() {
+        const playPauseButton = document.querySelector('.custom-audio-player .controls button:nth-child(2)');
+        if (playPauseButton) {
+            playPauseButton.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        }
+    }
+
+    function skipBackward() {
+        if (currentAudioElement) {
+            currentAudioElement.currentTime = Math.max(0, currentAudioElement.currentTime - 10);
+        }
+    }
+
+    function skipForward() {
+        if (currentAudioElement) {
+            currentAudioElement.currentTime = Math.min(currentAudioElement.duration, currentAudioElement.currentTime + 10);
+        }
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        document.querySelector("header").classList.toggle("dark-mode");
+        document.querySelector("footer").classList.toggle("dark-mode");
+        const surahItems = document.querySelectorAll(".surah-list li");
+        surahItems.forEach(item => item.classList.toggle("dark-mode"));
+    }
+</script>
+
+</body>
+</html>
