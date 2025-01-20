@@ -3,29 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التحديثات</title>
-    <link rel="stylesheet" href="css/updates.css">
+    <title>Updates</title>
+    <!-- إضافة Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* نظام الألوان الجديد */
+        :root {
+            --A: #0f88;
+            --primary-color: #25ca0ff3; /* لون رئيسي */
+            --secondary-color: #0828ddcc; /* لون ثانوي */
+            --accent-color: #026ae0cb; /* لون مميز */
+            --background-color: #4087f18e; /* لون الخلفية */
+            --text-color: #ffffff; /* لون النص */
+            --hover-color: #0bb187; /* لون عند المرور */
+            --card-bg: rgba(38, 179, 160, 0.425); /* لون خلفية العناصر */
+            --border-radius: 20px; /* زوايا دائرية */
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* ظل العناصر */
+            --neon-glow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+        }
+
+        /* الخطوط المستقبلية */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* الانتقال السلس بين الأقسام */
+        }
+
+        /* خلفية ديناميكية تفاعلية */
+        #dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            opacity: 0.2;
+            animation: gradientBackground 10s infinite alternate;
+        }
+
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* الترويسة */
+        header {
+            background: rgba(15, 15, 15, 0.8);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-color);
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px); /* تأثير ضبابي */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-shadow: var(--neon-glow);
+        }
+
+        .updates-btn {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 10px 20px;
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .updates-btn:hover {
+            background-color: var(--hover-color);
+            transform: scale(1.05);
+            box-shadow: var(--neon-glow);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--hover-color);
+            transform: translateY(-5px);
+            text-shadow: var(--neon-glow);
+        }
+
+        .updates-page {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--neon-glow);
+        }
+
+        .gallery, .audio-gallery, .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            align-items: center; /* محاذاة العناصر في المنتصف */
+            justify-content: center; /* محاذاة العناصر في المنتصف */
+        }
+
+        .photo, .audio-item, .video-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* محاذاة العناصر في المنتصف */
+            justify-content: center; /* محاذاة العناصر في المنتصف */
+        }
+
+        .photo:hover, .audio-item:hover, .video-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .photo img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--neon-glow);
+        }
+
+        audio {
+            width: 50%;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            padding: 10px;
+            box-shadow: var(--box-shadow);
+        }
+        video {
+            width: 50%;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            padding: 10px;
+            box-shadow: var(--box-shadow);
+        }
+
+        audio::-webkit-media-controls-panel {
+            background-color: var(--primary-color);
+            border-radius: var(--border-radius);
+        }
+
+        audio::-webkit-media-controls-play-button, video::-webkit-media-controls-play-button {
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 40px 0;
+        }
+
+        .info {
+            text-align: center;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            margin: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(15, 15, 15, 0.8);
+            color: var(--text-color);
+            margin-top: 40px;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px); /* تأثير ضبابي */
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* روابط التواصل الاجتماعي */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--hover-color);
+            transform: translateY(-5px);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul li a {
+                font-size: 1rem;
+            }
+
+            .gallery, .audio-gallery, .video-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .updates-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- خلفية ديناميكية تفاعلية -->
+    <div id="dynamic-background"></div>
+
     <header>
-        <h1>Updates</h1>
-        <button class="updates-btn" onclick="window.location.href='index.html'">Main page</button>
-    </header>
-    <header class="on">
-        <p>Sections</p>
+        <h1>التحديثات</h1>
+        <button class="updates-btn" onclick="window.location.href='index.html'">الصفحة الرئيسية</button>
         <nav>
             <ul>
-                <li><a href="index.html">Main page</a></li>
-                <li><a href="#photos-section">Photos</a></li>
-                <li><a href="#audio-section">Audio</a></li>
-                <li><a href="#videos-section">Videos</a></li>
+                <li><a href="#photos-section">الصور</a></li>
+                <li><a href="#audio-section">الصوتيات</a></li>
+                <li><a href="#videos-section">الفيديوهات</a></li>
             </ul>
         </nav>
     </header>
     <main class="updates-page">
         <!-- قسم الصور -->
         <section id="photos-section">
-            <h2>Photos</h2> 
+            <h2>الصور</h2>
             <div class="gallery">
                 <div class="photo">
                     <h3>💖</h3>
@@ -37,97 +323,123 @@
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/3.jpg" alt="صورة 1">
+                    <img src="photoes/3.jpg" alt="صورة 3">
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/4.jpg" alt="صورة 1">
+                    <img src="photoes/4.jpg" alt="صورة 4">
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/5.jpg" alt="صورة 1">
+                    <img src="photoes/5.jpg" alt="صورة 5">
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/6.jpg" alt="صورة 1">
+                    <img src="photoes/6.jpg" alt="صورة 6">
                 </div>
                 <div class="photo">
                     <h3>💖Broo💖</h3>
-                    <img src="photoes/7.jpg" alt="صورة 1">
+                    <img src="photoes/7.jpg" alt="صورة 7">
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/8.jpg" alt="صورة 1">
+                    <img src="photoes/8.jpg" alt="صورة 8">
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/9.jpg" alt="صورة 1">
+                    <img src="photoes/9.jpg" alt="صورة 9">
                 </div>
                 <div class="photo">
                     <h3>💖حازييم</h3>
-                    <img src="photoes/10.jpg" alt="صورة 1">
+                    <img src="photoes/10.jpg" alt="صورة 5">
                 </div>
                 <div class="photo">
                     <h3>💖💖💖💖</h3>
-                    <img src="photoes/11.jpg" alt="صورة 1">
+                    <img src="photoes/11.jpg" alt="صورة 5">
                 </div>
                 <div class="photo">
                     <h3>💖</h3>
-                    <img src="photoes/12.jpg" alt="صورة 1">
+                    <img src="photoes/12.jpg" alt="صورة 5">
                 </div>
                 <div class="photo">
-                    <h3>💖حازييييم</h3>
-                    <img src="photoes/13.jpg" alt="صورة 1">
-                </div>
-
-                <!-- يمكنك إضافة المزيد من الصور -->
+                <h3>💖حازييييم</h3>
+                <img src="photoes/13.jpg" alt="صورة 5">
+              </div>
             </div>
             <hr class="divider">
         </section>
 
         <!-- قسم ملفات الصوت -->
         <section id="audio-section">
-             <h2>Audio Files</h2> 
+            <h2>ملفات الصوت</h2>
             <div class="audio-gallery">
                 <div class="audio-item">
-                    <h3>صلاة العشاء | مسجد التوبة | 2024/10/10 </h3>
+                    <h3>صلاة العشاء | مسجد التوبة | 2024/10/10</h3>
                     <audio controls>
                         <source src="audio/website2.mp3" type="audio/mpeg">
                         المتصفح الخاص بك لا يدعم تشغيل الملفات الصوتية.
                     </audio>
-                    <p>ما تيسر من سورة الواقعة<br>! wear a headphones for best quality</p>
+                    <p>ما تيسر من سورة الواقعة<br>! استخدم سماعات لجودة أفضل </p>
                 </div>
-                
-                <!-- المزيد من ملفات الصوت -->
             </div>
             <hr class="divider">
         </section>
 
         <!-- قسم الفيديوهات -->
         <section id="videos-section">
-            <h2>Videos</h2> 
+            <h2>الفيديوهات</h2>
             <div class="video-gallery">
                 <div class="video-item">
-                    <h3>.مقتَطفة من أُنشُودَة: طويلُ الشوق </h3>
+                    <h3>مقتطفة من أنشودة: طويل الشوق</h3>
                     <video controls>
                         <source src="videos/web-vid.mp4" type="video/mp4">
                         المتصفح الخاص بك لا يدعم تشغيل الفيديو.
                     </video>
-                    <p>memories--> 2024/3/7</p>
+                    <p>ذكريات --> 2024/3/7</p>
                 </div>
-                <div class="video-item">
-                    
-                <!-- المزيد من الفيديوهات -->
             </div>
             <hr class="divider">
         </section>
     </main>
-    <ul class="info">
-        <p>More Updates will be uploaded soon inshallah 💖</p>
-     </ul>
     <footer>
         <p>جميع الحقوق محفوظة © 2024</p>
-        <p>Developed by Amr Abdel-hady 💖</p>
+        <p>تم التطوير بواسطة عمرو عبد الهادي 💖</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/qr?id=61551830860947" target="_blank"><i class="fab fa-facebook-f"></i></a> <!-- Facebook -->
+            <a href="https://www.instagram.com/amr_abdelhady_7_9_4/profilecard/?igsh=amk4ZWFqdjlqdmcz" target="_blank"><i class="fab fa-instagram"></i></a> <!-- Instagram -->
+            <a href="https://wa.me/+201115025600" target="_blank"><i class="fab fa-whatsapp"></i></a> <!-- WhatsApp -->
+            <a href="mailto:amrabdelhady794@gmail.com" target="_blank"><i class="far fa-envelope"></i></a> <!-- Gmail -->
+        </div>
     </footer>
+
+    <script>
+        // تأثيرات JavaScript
+        document.addEventListener("DOMContentLoaded", function () {
+            // الانتقال السلس بين الأقسام
+            const links = document.querySelectorAll("nav ul li a");
+            links.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute("href");
+                    const targetSection = document.querySelector(targetId);
+                    targetSection.scrollIntoView({ behavior: "smooth" });
+                });
+            });
+
+            // تأثيرات Fade-In وSlide-In للأقسام
+            const sections = document.querySelectorAll("section");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach((section) => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
