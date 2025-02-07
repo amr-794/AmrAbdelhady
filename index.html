@@ -59,7 +59,8 @@
     font-size: 1.8rem;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-  }
+    box-shadow: 0 0 15px rgba(248, 180, 0, 0.7);
+}
 
     #theme-toggle:hover {
         transform: scale(1.1);
@@ -146,7 +147,7 @@
       transform: translateY(-100px);
       animation: fadeInDown 1.5s ease-out forwards;
       /* تأثير منير للنص */
-      
+      text-shadow: 0 0 10px #f8b400, 0 0 20px #f8b400;
     }
     @keyframes fadeInDown {
       to { opacity: 1; transform: translateY(0); }
@@ -158,7 +159,7 @@
       color: #f8b400;
       animation: bounce 1.5s infinite;
       cursor: pointer;
-      
+      text-shadow: 0 0 10px #f8b400;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
@@ -177,7 +178,7 @@
     .signature h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 4rem;
-      background: linear-gradient(45deg, #ff0000, #61c5f1, #f8b400);
+      background: linear-gradient(45deg, #ff7b7b, #61c5f1, #f8b400);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
@@ -186,6 +187,7 @@
     .signature p {
       font-size: 1.2rem;
       color: #ff8800;
+      text-shadow: 1px 1px 4px rgb(255, 0, 0);
     }
 
     /* قسم الملف الشخصي */
@@ -281,15 +283,15 @@
     .portfolio-item .card-content h3 {
       font-size: 1.6rem;
       margin-bottom: 10px;
-      color: #ffd900; /* فضي */
+      color: #f7d200; /* فضي */
       font-weight: 700;
-     
+      text-shadow: 0 0 5px #580202;
     }
     .portfolio-item .card-content p {
       font-size: 1rem;
       color: #00d458; /* فضي فاتح */
       line-height: 1.4;
-      
+      text-shadow: 0 0 3px #c79407;
     }
     /* حركة بهلوانية عند الضغط على الكروت */
     @keyframes acrobatic {
@@ -338,7 +340,7 @@
     }
     footer p {
       font-size: 1rem;
-      color: #b9b9b9;
+      color: #aaa;
     }
 
     /* استجابة التصميم للأجهزة الصغيرة */
@@ -533,66 +535,83 @@ body {
   </footer>
 
   <script>
-    /************************************
-     * خلفية Canvas مع جسيمات متحركة *
-     ************************************/
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    let particles = [];
-    const particleCount = 200;
-    const colors = ["rgba(0,150,255,0.9)", "rgba(255,255,0,0.9)", "rgba(0,255,255,0.9)"];
+   /************************************
+ * خلفية Canvas مع جسيمات متحركة محسنة *
+ ************************************/
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
+let width = (canvas.width = window.innerWidth);
+let height = (canvas.height = window.innerHeight);
+let particles = [];
+const particleCount = 150; // تقليل العدد قليلاً لتحسين الأداء
+const colors = ["rgba(0,150,255,0.8)", "rgba(255,255,0,0.8)", "rgba(0,255,255,0.8)"];
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = (Math.random() - 0.5) * 2;
-        this.speedY = (Math.random() - 0.5) * 2;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x > width) this.x = 0;
-        if (this.x < 0) this.x = width;
-        if (this.y > height) this.y = 0;
-        if (this.y < 0) this.y = height;
-      }
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
+// تحسين دقة الرسم
+const dpr = window.devicePixelRatio || 1;
+canvas.width = width * dpr;
+canvas.height = height * dpr;
+ctx.scale(dpr, dpr);
 
-    function createParticles() {
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    }
+class Particle {
+  constructor() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * 1.5; // تقليل السرعة لتحسين السلاسة
+    this.speedY = (Math.random() - 0.5) * 1.5;
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
 
-    function animateParticles() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
+    if (this.x > width) this.x = 0;
+    if (this.x < 0) this.x = width;
+    if (this.y > height) this.y = 0;
+    if (this.y < 0) this.y = height;
+  }
 
-    createParticles();
-    animateParticles();
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// إنشاء الجسيمات
+function createParticles() {
+  particles = [];
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+}
+
+// تحديث وتحريك الجسيمات بسلاسة
+function animateParticles() {
+  ctx.clearRect(0, 0, width, height);
+  particles.forEach((p) => {
+    p.update();
+    p.draw();
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+
+// تحسين إعادة التهيئة عند تغيير حجم النافذة
+window.addEventListener("resize", () => {
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  ctx.scale(dpr, dpr);
+  createParticles();
+});
+
+// بدء الرسوم المتحركة
+createParticles();
+animateParticles();
 
     // دالة التمرير للأسفل عند النقر على سهم النزول
     function scrollDown() {
