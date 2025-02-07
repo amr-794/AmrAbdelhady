@@ -178,7 +178,7 @@
     .signature h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 4rem;
-      background: linear-gradient(45deg, #ff7b7b, #61c5f1, #f8b400);
+      background: linear-gradient(45deg, #ff0000, #61c5f1, #f8b400);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
@@ -283,15 +283,15 @@
     .portfolio-item .card-content h3 {
       font-size: 1.6rem;
       margin-bottom: 10px;
-      color: #f7d200; /* فضي */
+      color: #ffd900; /* فضي */
       font-weight: 700;
-      text-shadow: 0 0 5px #580202;
+     
     }
     .portfolio-item .card-content p {
       font-size: 1rem;
       color: #00d458; /* فضي فاتح */
       line-height: 1.4;
-      text-shadow: 0 0 3px #c79407;
+      
     }
     /* حركة بهلوانية عند الضغط على الكروت */
     @keyframes acrobatic {
@@ -340,7 +340,7 @@
     }
     footer p {
       font-size: 1rem;
-      color: #aaa;
+      color: #b9b9b9;
     }
 
     /* استجابة التصميم للأجهزة الصغيرة */
@@ -423,6 +423,16 @@ body {
     transform: scale(1.05);
 }
 
+/* تأثير Scroll سلس */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
   </style>
 </head>
@@ -647,7 +657,31 @@ body {
         }
     });
 
-    
+    // تحسين تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("loaded");
+});
+
+// كشف العناصر أثناء التمرير (Scroll Reveal)
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
+
+// إضافة تأثير التمرير السلس
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute("href"));
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+});
+
 
   </script>
 
