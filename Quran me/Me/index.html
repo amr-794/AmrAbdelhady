@@ -3,456 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة الصوتيات الخاصة بي</title>
+    <title>الكنوز الصوتية الذهبية - النسخة الديناميكية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Georgia', serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #ffffff;
-            overflow-x: hidden;
+        :root {
+            --hue: 210;
+            --primary: hsl(var(--hue), 80%, 55%);
+            --secondary: hsl(calc(var(--hue) + 120), 70%, 55%);
+            --accent: hsl(calc(var(--hue) + 240), 75%, 60%);
+            --text: hsl(0, 0%, 95%);
+            --bg: hsl(var(--hue), 40%, 12%);
+            --glass: linear-gradient(145deg, 
+                rgba(255,255,255,0.08), 
+                rgba(255,255,255,0.02));
         }
 
+        @keyframes cosmicShift {
+            0% { --hue: 210; }
+            33% { --hue: 300; }
+            66% { --hue: 150; }
+            100% { --hue: 210; }
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            animation: cosmicShift 30s infinite linear;
+        }
+
+        /* الهيدر الذكي */
         header {
             position: fixed;
             top: 0;
             width: 97%;
-            background-color: rgba(0, 0, 0, 0.9);
-            color: #ffffff;
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(200%);
+            padding: 1.5rem 3rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            align-items: center;
             z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        header .header-left {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1.5rem;
+            perspective: 1000px;
         }
 
-        header .main-page {
-            text-decoration: none;
-            background-color: #ff6b6b;
-            color: white;
-            padding: 10px 15px;
-            font-size: 1em;
-            border-radius: 5px;
-            transition: transform 0.3s, background-color 0.3s;
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            filter: drop-shadow(0 0 10px var(--primary));
+            animation: float 3s ease-in-out infinite;
         }
 
-        header .main-page:hover {
-            transform: scale(1.1);
-            background-color: #ff4a4a;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        header .page-title {
-            font-size: 1.5em;
-            color: #ffd700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        }
-
-        header nav {
+        .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 3rem;
         }
 
-        header nav a {
+        .nav-link {
+            color: var(--text);
             text-decoration: none;
-            color: #ffd700;
-            font-size: 1em;
-            padding: 10px 20px;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s, color 0.3s;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        header nav a:hover {
-            background-color: #ffd700;
-            color: #000;
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.1),
+                transparent
+            );
+            transition: 0.6s;
         }
 
-        @media (min-width: 769px) {
-            header nav {
-                margin-right: auto; /* يجعل الأزرار في المنتصف */
-            }
+        .nav-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--primary);
         }
 
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            padding: 150px 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: contentAppear 1.2s ease forwards;
+        }
+
+        @keyframes contentAppear {
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin: 5rem 0;
+            position: relative;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        /* بطاقات الصوتيات */
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 4rem;
+            padding: 2rem;
+        }
+
+        .audio-card {
+            background: var(--glass);
+            border-radius: 25px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+
+        .audio-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(255,255,255,0.06),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .audio-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .audio-card:hover::before {
+            opacity: 1;
+        }
+
+        .audio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .surah-name {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .recording-info {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* مشغل الصوت المخصص */
+        audio {
+            width: 100%;
+            margin-top: 2rem;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
+        }
+
+        audio::-webkit-media-controls-panel {
+            background: var(--glass);
+            border-radius: 15px;
+        }
+
+        audio::-webkit-media-controls-play-button {
+            background: var(--primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        audio::-webkit-media-controls-play-button:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        /* تأثيرات خاصة */
+        .active-audio {
+            background: linear-gradient(
+                145deg,
+                rgba(var(--primary-rgb), 0.2),
+                rgba(var(--secondary-rgb), 0.1)
+            );
+            box-shadow: 0 0 40px var(--primary);
+        }
+
+        /* زر العودة الذكي */
+        .scroll-top {
+            position: fixed;
+            bottom: 3rem;
+            left: 3rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 25px var(--primary);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        /* التكيف مع الشاشات الصغيرة */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                align-items: flex-start;
+                gap: 2rem;
+                padding: 1.5rem;
             }
 
-            header .header-left {
-                margin-bottom: 10px;
-            }
-
-            header .main-page {
-                font-size: 0.8em;
-                padding: 8px 12px;
-            }
-
-            header nav {
-                justify-content: flex-start;
+            .nav-links {
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 1.5rem;
             }
 
-            header nav a {
-                font-size: 0.9em;
-                padding: 8px 10px;
+            .audio-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            header .page-title {
-                font-size: 1.2em;
+            .section-title {
+                font-size: 2.5rem;
             }
-        }
-
-        .container {
-            padding: 120px 20px 40px;
-            animation: fadeIn 2s;
-        }
-
-        .category {
-            margin-bottom: 60px;
-        }
-
-        .category-title {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #ffd700;
-            text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        }
-
-        .audio-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .audio-item {
-            background: linear-gradient(135deg, #ff6b6b, #ffcc70);
-            border-radius: 15px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
-
-        .audio-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
-            text-align: center;
-            padding: 20px;
-        }
-
-        #scrollToTop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #ffd700;
-            color: #000;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: opacity 0.3s, transform 0.3s;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-
-        #scrollToTop.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #scrollToTop:hover {
-            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-left">
-            <a href="../../index.html" class="main-page">الصفحة الرئيسية</a>
-            <span class="page-title">صفحة الصوتيات الخاصة بي</span>
+        <div class="logo">
+            <i class="fas fa-moon logo-icon"></i>
+            <h1>تلاواتي</h1>
         </div>
-        <nav>
-            <a href="#quran-section">التلاوات العشوائية</a>
-            <a href="#mosque-section">تلاوات الصلوات</a>
+        <nav class="nav-links">
+            <a href="#quran-section" class="nav-link">التلاوات</a>
+            <a href="#mosque-section" class="nav-link">الصلوات</a>
+            <a href="../../index.html" class="nav-link">الرئيسية</a>
         </nav>
     </header>
 
     <div class="container">
-        <div class="category" id="quran-section">
+        <section id="quran-section">
+            <h2 class="section-title">التلاوات العشوائية</h2>
+            <div class="audio-grid">
 
-            
-
-            <h2 class="category-title">تلاوات العشواية</h2>
-
- 
-            <div class="audio-list">
-                <div class="audio-item">
-                    <h3>سورة الذاريات</h3>
+                
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">سورة الذاريات</h3>
+                        <div class="recording-info">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Jan 29, 1 سورة الذاريات.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
 
-
-            <div class="audio-list">
-                <div class="audio-item">
-                    <h3>سورة ق</h3>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">سورة ق</h3>
+                        <div class="recording-info">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Jan 29, 10 سورة ق.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
-               </div>
+                </div>
+                <!-- إضافة المزيد من البطاقات هنا -->
             </div>
-        </div>
+        </section>
+
+        <section id="mosque-section">
+            <h2 class="section-title">تلاوات الصلوات</h2>
+            <div class="audio-grid">
 
 
-    
-
-        <div class="category" id="mosque-section">
-
-
-            <h2 class="category-title">تلاوات الصلوات</h2>
-
-
-
-            <div class="audio-list">
-
-
-
-
-                <div class="audio-item">
-                    💙
-                    <h3>صلاة الفجر | سورة ق كاملة </h3>
-                    <P>2025/Mar/8 (يوم 8 رمضان)
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | سورة ق كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Mar/8 (يوم 8 رمضان)</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Fajr_Omar bin abdul aziz mosque(8 Ramadan)Mar-8-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
+                <!-- إضافة المزيد من البطاقات هنا -->
 
-
-
-                <div class="audio-item">
-                    💙
-                    <h3>صلاة الفجر |سورة القمر كاملة </h3>
-                    <P>2025/Mar/7 (يوم 7 رمضان)
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر |سورة القمر كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Mar/7 (يوم 7 رمضان)</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Fajr_ Omar bin abdul aziz mosque(7 Ramadan)Mar-7-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
 
 
-                <div class="audio-item">
-                    💙
-                    <h3>صلاة الفجر | سورة النجم كاملة </h3>
-                    <P>2025/Mar/4 (يوم 4 رمضان)
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | سورة النجم كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 025/Mar/4 (يوم 4 رمضان)</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Fajr_ Omar bin abdul aziz mosque(4 Ramadan)Mar-4-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
 
 
-                <div class="audio-item">
-                    💙
-                    <h3>صلاة الفجر |ما تيسر من  سورة الحديد وسورة عبس كاملة</h3>
-                    <P>2025/Mar/3 (يوم 3 رمضان)
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر |ما تيسر من  سورة الحديد وسورة عبس كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Mar/3 (يوم 3 رمضان)</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Fajr_ Omar bin abdul aziz mosque(3 Ramadan)Mar-3-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
-                
 
 
 
-                <div class="audio-item">
-                    💙
-                    <h3>صلاة الفجر | سورة التحريم كاملة</h3>
-                    <P>2025/Mar/2 (يوم 2 رمضان)
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | سورة التحريم كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Mar/2 (يوم 2 رمضان)</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Fajr_Omar bin abdul aziz mosque(2 Ramadan)Mar-2-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
-                
 
-                <div class="audio-item">
-                    💙
-                    <h3>صلاة الفجر | ما تيسر من سورة الحديد</h3>
-                    <P>2025/Mar/1 (يومُ 1 رمضان)
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | ما تيسر من سورة الحديد</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Mar/1 (يومُ 1 رمضان)</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Fajr_ Omar bin abdul aziz mosque(1 Ramadan)Mar-1-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
-                
 
-                <div class="audio-item">
-                    💙
-                    </h3> صلاة العشاء | سورة الحجرات كاملة</h3>
-                    <P>2025/Feb/27
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة العشاء | سورة الحجرات كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Feb/27</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Isha Omar bin abdul aziz mosque Al-Hujurat Feb-27-2025.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
-            
 
 
 
-                <div class="audio-item">
-                    <h3>صلاة الفجر | سورة الذاريات كاملة</h3>
-                    <P>2025/Feb/6
-                        <br> مسجد عمر بن عبد العزيز
-                    </P>
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | سورة الذاريات كاملة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/Feb/6</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Feb 6, 5  الفجر الياسمين تم القص تعديل.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
 
-                
-                <div class="audio-item">
-                    <h3>صلاة الفجر | سورتي القيامة و الفيل</h3>
-                    <P>2025/JAN/5
-                        <br> مسجد عمر بن عبد العزيز
-                         <br>تعطل الميكروفون في الركعة الثانية
-                    </P>
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | سورتي القيامة و الفيل</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2025/JAN/5</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Jan 10,  الفجر الياسمين معدل (قَطْعٌ فقط).mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
-                <div class="audio-item">
-                    <h3>آذان من مسجد عمر بن عبد العزيز</h3>
+
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">آذان من مسجد عمر بن عبد العزيز</h3>
+                        <div class="recording-info">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/آذان.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
-                <div class="audio-item">
-                    <h3>صلاة العشاء | ما تيسر من سورة الواقعة</h3>
-                    <p>مسجد التوبة
-                        <br>2024/Oct/10
-                    </p>
+
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة العشاء | ما تيسر من سورة الواقعة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد التوبة</span>
+                            <span>📅 2024/Oct/10</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/الواقعة_مسجد التوبة_صلاة العشاء.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
-                <div class="audio-item">
-                    <h3>صلاة العشاء | ما تيسر من سورة الواقعة</h3>
-                    <p>مسجد التوبة
-                        <br>2024/Nov/8
-                    </p>
+
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة العشاء | ما تيسر من سورة الواقعة</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد التوبة</span>
+                            <span>📅 2024/Nov/8</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Nov 8, 6 2024 العشاء التوبة باقي الواقعة.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
 
-                <div class="audio-item">
-                    <h3>صلاة الفجر | ما تيسر من سورة الحديد</h3>
-                    <p>مسجد عمر بن عبد العزيز
-                        <br>2024/Dec/12
-                        <br>تعطل الميكروفون في الركعة الثانية
-                    </p>
+
+
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <h3 class="surah-name">صلاة الفجر | ما تيسر من سورة الحديد</h3>
+                        <div class="recording-info">
+                            <span>🕌 مسجد عمر بن عبد العزيز</span>
+                            <span>📅 2024/Dec/12</span>
+                        </div>
+                    </div>
                     <audio controls>
                         <source src="audio/Dec 12, 5 22422الفجر الياسمين تعدييل.mp3" type="audio/mpeg">
-                        المتصفح الخاص بك لا يدعم تشغيل الصوت.
                     </audio>
                 </div>
-
 
 
             </div>
-        </div>
+        </section>
     </div>
 
-    <footer>حقوق الطبع والنشر &copy; 2024 - Amoora💖</footer>
-
-    <button id="scrollToTop">
+    <div class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
-    </button>
+    </div>
 
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // نظام إدارة الألوان الديناميكي
+        document.documentElement.style.setProperty('--primary-rgb', 
+            getComputedStyle(document.documentElement)
+            .getPropertyValue('--primary')
+            .match(/\d+/g));
+
+        // تفاعل حركة الماوس على البطاقات
+        document.querySelectorAll('.audio-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
 
-        const scrollToTopButton = document.getElementById('scrollToTop');
+        // إدارة تشغيل الصوتيات
+        const audioElements = document.querySelectorAll('audio');
+        let currentAudio = null;
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                scrollToTopButton.classList.add('show');
-            } else {
-                scrollToTopButton.classList.remove('show');
-            }
+        audioElements.forEach(audio => {
+            audio.addEventListener('play', () => {
+                if(currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.parentElement.classList.remove('active-audio');
+                }
+                currentAudio = audio;
+                audio.parentElement.classList.add('active-audio');
+                animateAudioCard(audio.parentElement);
+            });
         });
 
-        scrollToTopButton.addEventListener('click', () => {
+        function animateAudioCard(card) {
+            card.style.transform = `translateY(-10px) scale(1.05)`;
+            card.style.boxShadow = `0 0 50px ${getComputedStyle(document.documentElement)
+                .getPropertyValue('--primary')}`;
+        }
+
+        // إدارة التمرير
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            scrollTopBtn.classList.toggle('show', scrollY > 500);
+            
+            // تغيير الألوان الديناميكي حسب الموقع
+            const hue = 210 + (scrollY / 10 % 360);
+            document.documentElement.style.setProperty('--hue', hue);
+        });
+
+        // تأثيرات الظهور
+        window.addEventListener('load', () => {
+            document.querySelector('.container').style.opacity = 1;
+            anime({
+                targets: '.audio-card',
+                opacity: [0, 1],
+                translateY: [50, 0],
+                delay: anime.stagger(100),
+                duration: 1000,
+                easing: 'easeOutExpo'
+            });
+        });
+
+        // تفاعل زر العودة
+        scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </body>
 </html>
