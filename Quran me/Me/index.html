@@ -196,19 +196,27 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* مشغل الصوت المخصص */
         audio {
-            width: 100%;
-            height: 50px;
-            margin-top: 1.5rem;
-            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
-        }
+    width: 100%;
+    max-width: 800px; /* يمكنك تعديل القيمة حسب الحاجة */
+    margin: 1.5rem auto;
+    display: block;
+}
 
-        audio::-webkit-media-controls-panel {
-            background: var(--glass);
-            border-radius: 12px;
-            padding: 12px;
-        }
+/* للتخصيص في المتصفحات التي تعتمد على WebKit (كروم، سفاري) */
+audio::-webkit-media-controls-panel {
+    width: 100%;
+    padding: 8px;
+}
+
+audio::-webkit-media-controls-timeline {
+    width: 100%; /* توسيع شريط التوقيت */
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    font-size: 0.85em;
+}
 
         audio::-webkit-media-controls-timeline {
             display: inline-block;
@@ -216,7 +224,7 @@
         }
 
         audio::-webkit-media-controls-play-button {
-            background: var(--primary);
+            
             border-radius: 50%;
             transition: all 0.3s ease;
         }
