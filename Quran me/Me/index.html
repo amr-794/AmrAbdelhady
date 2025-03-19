@@ -36,57 +36,57 @@
             animation: cosmicShift 30s infinite linear;
         }
 
-        /* الهيدر الذكي */
+        /* الترويسة المعدلة */
         header {
             position: fixed;
             top: 0;
-            width: 97%;
+            width: 95%;
             background: var(--glass);
-            backdrop-filter: blur(20px) saturate(200%);
-            padding: 1.5rem 3rem;
+            backdrop-filter: blur(15px) saturate(180%);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            perspective: 1000px;
+            gap: 1rem;
         }
 
         .logo-icon {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            filter: drop-shadow(0 0 10px var(--primary));
+            filter: drop-shadow(0 0 8px var(--primary));
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-5px); }
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 1.5rem;
         }
 
         .nav-link {
             color: var(--text);
             text-decoration: none;
-            padding: 0.8rem 2rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 50px;
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
             background: var(--glass);
             border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
         }
 
         .nav-link::before {
@@ -116,7 +116,7 @@
 
         /* المحتوى الرئيسي */
         .container {
-            padding: 150px 2rem 4rem;
+            padding: 120px 2rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
             opacity: 0;
@@ -129,8 +129,8 @@
 
         .section-title {
             text-align: center;
-            font-size: 3rem;
-            margin: 5rem 0;
+            font-size: 2.5rem;
+            margin: 4rem 0;
             position: relative;
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -141,15 +141,15 @@
         /* بطاقات الصوتيات */
         .audio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 4rem;
-            padding: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+            padding: 1.5rem;
         }
 
         .audio-card {
             background: var(--glass);
-            border-radius: 25px;
-            padding: 2.5rem;
+            border-radius: 20px;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
@@ -172,8 +172,8 @@
         }
 
         .audio-card:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: translateY(-8px) rotateX(3deg) rotateY(1deg);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
 
         .audio-card:hover::before {
@@ -184,36 +184,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             position: relative;
             z-index: 2;
         }
 
         .surah-name {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .recording-info {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
         /* مشغل الصوت المخصص */
         audio {
             width: 100%;
-            margin-top: 2rem;
+            height: 50px;
+            margin-top: 1.5rem;
             filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
         }
 
         audio::-webkit-media-controls-panel {
             background: var(--glass);
-            border-radius: 15px;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        audio::-webkit-media-controls-timeline {
+            display: inline-block;
+            width: 70%;
         }
 
         audio::-webkit-media-controls-play-button {
@@ -222,28 +221,44 @@
             transition: all 0.3s ease;
         }
 
-        audio::-webkit-media-controls-play-button:hover {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-        }
+        /* التكيف مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.8rem 1rem;
+                width: 90%;
+            }
 
-        /* تأثيرات خاصة */
-        .active-audio {
-            background: linear-gradient(
-                145deg,
-                rgba(var(--primary-rgb), 0.2),
-                rgba(var(--secondary-rgb), 0.1)
-            );
-            box-shadow: 0 0 40px var(--primary);
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+            }
+
+            .nav-link {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .audio-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 1rem;
+            }
         }
 
         /* زر العودة الذكي */
         .scroll-top {
             position: fixed;
-            bottom: 3rem;
-            left: 3rem;
-            width: 60px;
-            height: 60px;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
             background: var(--primary);
             border-radius: 50%;
             display: flex;
@@ -253,40 +268,7 @@
             opacity: 0;
             transform: translateY(100px);
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 8px 25px var(--primary);
-        }
-
-        .scroll-top.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .scroll-top:hover {
-            background: var(--secondary);
-            transform: scale(1.1) rotate(180deg);
-        }
-
-        /* التكيف مع الشاشات الصغيرة */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 2rem;
-                padding: 1.5rem;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                gap: 1.5rem;
-            }
-
-            .audio-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
+            box-shadow: 0 6px 20px var(--primary);
         }
     </style>
 </head>
@@ -545,6 +527,10 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <script>
         // نظام إدارة الألوان الديناميكي
         document.documentElement.style.setProperty('--primary-rgb', 
@@ -591,9 +577,15 @@
             const scrollY = window.scrollY;
             scrollTopBtn.classList.toggle('show', scrollY > 500);
             
-            // تغيير الألوان الديناميكي حسب الموقع
-            const hue = 210 + (scrollY / 10 % 360);
-            document.documentElement.style.setProperty('--hue', hue);
+            // تغيير حجم الترويسة عند التمرير
+            const header = document.querySelector('header');
+            if (scrollY > 100) {
+                header.style.padding = '0.8rem 1.5rem';
+                header.style.backdropFilter = 'blur(10px) saturate(150%)';
+            } else {
+                header.style.padding = '1rem 2rem';
+                header.style.backdropFilter = 'blur(15px) saturate(180%)';
+            }
         });
 
         // تأثيرات الظهور
