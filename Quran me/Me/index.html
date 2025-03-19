@@ -3,93 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الكنوز الصوتية الذهبية - النسخة الديناميكية</title>
+    <title>الكنوز الصوتية المذهلة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --hue: 210;
-            --primary: hsl(var(--hue), 80%, 55%);
-            --secondary: hsl(calc(var(--hue) + 120), 70%, 55%);
-            --accent: hsl(calc(var(--hue) + 240), 75%, 60%);
-            --text: hsl(0, 0%, 95%);
-            --bg: hsl(var(--hue), 40%, 12%);
-            --glass: linear-gradient(145deg, 
-                rgba(255,255,255,0.08), 
-                rgba(255,255,255,0.02));
+            --space-gradient: linear-gradient(135deg, #000428, #004e92, #0f3460, #533483);
+            --golden-sun: #FFD93D;
+            --neon-blue: #00F5FF;
+            --plasma-red: #FF206E;
+            --quantum-green: #3BFF3B;
+            --galaxy-purple: #8A2BE2;
+            --text-glow: 0 0 10px currentColor;
+            --dynamic-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes cosmicShift {
-            0% { --hue: 210; }
-            33% { --hue: 300; }
-            66% { --hue: 150; }
-            100% { --hue: 210; }
+        @keyframes cosmicStorm {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes particleFlow {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
         }
 
         body {
             font-family: 'Amiri', serif;
             margin: 0;
             padding: 0;
-            background: var(--bg);
-            color: var(--text);
+            background: var(--space-gradient);
+            background-size: 400% 400%;
+            animation: cosmicStorm 25s ease infinite;
+            color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
-            animation: cosmicShift 30s infinite linear;
         }
 
-        /* الترويسة المعدلة */
+        .particles {
+            position: fixed;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 20%,
+                rgba(255,255,255,0.05) 50%,
+                transparent 80%
+            );
+            animation: particleFlow 20s linear infinite;
+            z-index: 0;
+        }
+
         header {
             position: fixed;
             top: 0;
-            width: 95%;
-            background: var(--glass);
+            width: 97%;
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(15px) saturate(180%);
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            border-bottom: 2.5px solid var(--golden-sun);
+            box-shadow: var(--dynamic-shadow);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .logo-icon {
-            font-size: 1.8rem;
-            color: var(--primary);
-            filter: drop-shadow(0 0 8px var(--primary));
-            animation: float 3s ease-in-out infinite;
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--neon-blue);
+            transition: width 0.6s ease;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .logo i {
+            color: var(--golden-sun);
+            font-size: 2.5rem;
+            filter: drop-shadow(var(--text-glow));
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 3rem;
         }
 
-        .nav-link {
-            color: var(--text);
+        .nav-links a {
+            color: var(--neon-blue);
             text-decoration: none;
-            padding: 0.6rem 1.5rem;
+            font-size: 1.2rem;
+            padding: 0.8rem 2rem;
             border-radius: 50px;
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
+            border: 2px solid transparent;
         }
 
-        .nav-link::before {
+        .nav-links a::before {
             content: '';
             position: absolute;
             top: 0;
@@ -97,226 +124,281 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(
-                120deg,
+                90deg,
                 transparent,
-                rgba(255,255,255,0.1),
+                rgba(0,245,255,0.2),
                 transparent
             );
             transition: 0.6s;
         }
 
-        .nav-link:hover {
+        .nav-links a:hover {
+            border-color: var(--plasma-red);
+            box-shadow: 0 0 25px var(--plasma-red);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--primary);
         }
 
-        .nav-link:hover::before {
+        .nav-links a:hover::before {
             left: 100%;
         }
 
-        /* المحتوى الرئيسي */
         .container {
-            padding: 120px 2rem 4rem;
-            max-width: 1400px;
+            padding: 160px 3rem 5rem;
+            max-width: 1600px;
             margin: 0 auto;
-            opacity: 0;
-            animation: contentAppear 1.2s ease forwards;
-        }
-
-        @keyframes contentAppear {
-            to { opacity: 1; }
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin: 4rem 0;
+            font-size: 3.2rem;
+            margin: 5rem 0;
             position: relative;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            color: var(--golden-sun);
+            text-shadow: var(--text-glow);
         }
 
-        /* بطاقات الصوتيات */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--plasma-red),
+                var(--neon-blue),
+                var(--quantum-green)
+            );
+            border-radius: 2px;
+        }
+
         .audio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 3rem;
-            padding: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 4rem;
+            padding: 3rem;
         }
 
         .audio-card {
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 25px;
+            padding: 2.5rem;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid transparent;
             transform-style: preserve-3d;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: pointer;
         }
 
         .audio-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255,255,255,0.06),
-                transparent 40%
+            background: linear-gradient(
+                45deg,
+                var(--neon-blue),
+                var(--plasma-red),
+                var(--quantum-green)
             );
+            z-index: -1;
             opacity: 0;
             transition: opacity 0.4s;
         }
 
         .audio-card:hover {
-            transform: translateY(-8px) rotateX(3deg) rotateY(1deg);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border-color: var(--golden-sun);
         }
 
         .audio-card:hover::before {
-            opacity: 1;
+            opacity: 0.1;
         }
 
         .audio-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .surah-name {
-            font-size: 1.6rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.7rem;
+            color: var(--quantum-green);
+            text-shadow: var(--text-glow);
+            position: relative;
+        }
+
+        .recording-info {
+            font-size: 1.1rem;
+            color: #ddd;
+            display: grid;
+            gap: 0.5rem;
         }
 
         audio {
-    width: 100%;
-    max-width: 800px; /* يمكنك تعديل القيمة حسب الحاجة */
-    margin: 1.5rem auto;
-    display: block;
-}
+            width: 100%;
+            margin-top: 2rem;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            transition: transform 0.3s ease;
+        }
 
-/* للتخصيص في المتصفحات التي تعتمد على WebKit (كروم، سفاري) */
-audio::-webkit-media-controls-panel {
-    width: 100%;
-    padding: 8px;
-}
-
-audio::-webkit-media-controls-timeline {
-    width: 100%; /* توسيع شريط التوقيت */
-}
-
-audio::-webkit-media-controls-current-time-display,
-audio::-webkit-media-controls-time-remaining-display {
-    font-size: 0.85em;
-}
-
-
-
-
-
-audio::-webkit-media-controls-volume-control-container {
-    display: none !important;
-}
-
-audio::-webkit-media-controls-volume-slider {
-    display: none !important;
-}
-
-
-
-
-
-
-        audio::-webkit-media-controls-timeline {
-            display: inline-block;
-            width: 70%;
+        audio::-webkit-media-controls-panel {
+            background: linear-gradient(135deg, #5caac9, #5718b6);
+            border-radius: 15px;
         }
 
         audio::-webkit-media-controls-play-button {
-            
             border-radius: 50%;
-            transition: all 0.3s ease;
         }
 
-        /* التكيف مع الشاشات الصغيرة */
-        @media (max-width: 768px) {
-            header {
-                padding: 0.8rem 1rem;
-                width: 90%;
-            }
-
-            .logo h1 {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                gap: 0.8rem;
-            }
-
-            .nav-link {
-                padding: 0.4rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .audio-grid {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-                padding: 1rem;
-            }
+        audio::-webkit-media-controls-timeline {
+            background: var(--plasma-red);
         }
 
-        /* زر العودة الذكي */
-        .scroll-top {
+        .active-audio {
+            background: linear-gradient(135deg, rgba(15, 52, 96, 0.9), rgba(83, 52, 131, 0.9));
+            box-shadow: 0 0 40px var(--galaxy-purple);
+        }
+
+        .active-audio .surah-name {
+            color: var(--neon-blue);
+            animation: textGlow 1.5s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px var(--neon-blue); }
+            to { text-shadow: 0 0 20px var(--neon-blue); }
+        }
+
+        .quantum-scroll {
             position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+            bottom: 3rem;
+            left: 3rem;
+            width: 60px;
+            height: 60px;
+            background: var(--plasma-red);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 6px 20px var(--primary);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 25px var(--plasma-red);
+            z-index: 1000;
+        }
+
+        .quantum-scroll.show {
+            opacity: 1;
+        }
+
+        .quantum-scroll:hover {
+            transform: scale(1.2) rotate(360deg);
+            background: var(--quantum-green);
+            box-shadow: 0 0 40px var(--quantum-green);
+        }
+
+        /* التعديلات الجديدة للجوال */
+        @media (max-width: 768px) {
+            header {
+                width: 100%;
+                padding: 0.5rem 1rem;
+                top: -8px;
+                border-bottom-width: 2px;
+            }
+
+            .logo {
+                gap: 0.3rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .logo i {
+                font-size: 1.8rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+                padding: 0.3rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+                border-radius: 30px;
+            }
+
+            .container {
+                padding: 120px 1rem 3rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin: 3rem 0 2rem;
+            }
+
+            .section-title::after {
+                width: 150px;
+                bottom: -0.8rem;
+                height: 3px;
+            }
+
+            .audio-grid {
+                padding: 1rem;
+                gap: 1.5rem;
+            }
+
+            .audio-card {
+                padding: 1rem;
+                border-radius: 15px;
+            }
+
+            .surah-name {
+                font-size: 1.3rem;
+            }
+
+            .recording-info {
+                font-size: 0.9rem;
+            }
+
+            .quantum-scroll {
+                bottom: 1rem;
+                left: 1rem;
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="particles"></div>
+    
     <header>
         <div class="logo">
-            <i class="fas fa-moon logo-icon"></i>
-            <h1>تلاواتي</h1>
+            <i class="fas fa-meteor"></i>
+            <h1>الكنوز السماوية</h1>
         </div>
         <nav class="nav-links">
-            <a href="#quran-section" class="nav-link">التلاوات</a>
-            <a href="#mosque-section" class="nav-link">الصلوات</a>
-            <a href="../../index.html" class="nav-link">الرئيسية</a>
+            <a href="#quran-section">التلاوات النجمية</a>
+            <a href="#mosque-section">تلاوات الكون</a>
+            <a href="../../index.html">القاعدة الرئيسية</a>
         </nav>
     </header>
 
     <div class="container">
         <section id="quran-section">
-            <h2 class="section-title">التلاوات العشوائية</h2>
+            <h2 class="section-title">التلاوات النجمية</h2>
             <div class="audio-grid">
 
-                
-                <div class="audio-card">
+
+
+               <div class="audio-card">
                     <div class="audio-header">
                         <h3 class="surah-name">سورة الذاريات</h3>
                         <div class="recording-info">
@@ -548,106 +630,70 @@ audio::-webkit-media-controls-volume-slider {
         </section>
     </div>
 
-    <div class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
-
-    <div class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
+    <div class="quantum-scroll" id="quantumScroll">
+        <i class="fas fa-rocket"></i>
     </div>
 
     <script>
-        // نظام إدارة الألوان الديناميكي
-        document.documentElement.style.setProperty('--primary-rgb', 
-            getComputedStyle(document.documentElement)
-            .getPropertyValue('--primary')
-            .match(/\d+/g));
-    
-        // تفاعل حركة الماوس على البطاقات
-        document.querySelectorAll('.audio-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
-    
-        // إدارة تشغيل الصوتيات
-        const audioElements = document.querySelectorAll('audio');
-        let currentAudio = null;
-    
-        audioElements.forEach(audio => {
+        // نظام إدارة الصوتيات الكمي
+        const quantumAudios = document.querySelectorAll('audio');
+        let activeQuantumAudio = null;
+
+        quantumAudios.forEach(audio => {
             audio.addEventListener('play', () => {
-                if(currentAudio && currentAudio !== audio) {
-                    currentAudio.pause();
-                    currentAudio.parentElement.classList.remove('active-audio');
-                    resetAudioCardStyle(currentAudio.parentElement);
+                if(activeQuantumAudio && activeQuantumAudio !== audio) {
+                    activeQuantumAudio.pause();
+                    activeQuantumAudio.parentElement.classList.remove('active-audio');
                 }
-                currentAudio = audio;
-                audio.parentElement.classList.add('active-audio');
-                animateAudioCard(audio.parentElement);
-            });
-    
-            audio.addEventListener('pause', () => {
-                if(currentAudio === audio) {
-                    audio.parentElement.classList.remove('active-audio');
-                    resetAudioCardStyle(audio.parentElement);
-                    currentAudio = null;
-                }
+                activeQuantumAudio = audio;
+                const card = audio.parentElement;
+                card.classList.add('active-audio');
+                
+                // تأثير الجسيمات للبطاقة النشطة
+                const particles = document.createElement('div');
+                particles.className = 'card-particles';
+                card.appendChild(particles);
+                
+                audio.addEventListener('pause', () => {
+                    card.classList.remove('active-audio');
+                    particles.remove();
+                });
             });
         });
-    
-        function animateAudioCard(card) {
-            card.style.transform = `translateY(-10px) scale(1.05)`;
-            card.style.boxShadow = `0 0 50px ${getComputedStyle(document.documentElement)
-                .getPropertyValue('--primary')}`;
-        }
-    
-        function resetAudioCardStyle(card) {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-        }
-    
-        // إدارة التمرير
-        const scrollTopBtn = document.getElementById('scrollTop');
+
+        // نظام التمرير الكمي
+        const quantumScroll = document.getElementById('quantumScroll');
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            scrollTopBtn.classList.toggle('show', scrollY > 500);
-            
-            // تغيير حجم الترويسة عند التمرير
-            const header = document.querySelector('header');
-            if (scrollY > 100) {
-                header.style.padding = '0.8rem 1.5rem';
-                header.style.backdropFilter = 'blur(10px) saturate(150%)';
-            } else {
-                header.style.padding = '1rem 2rem';
-                header.style.backdropFilter = 'blur(15px) saturate(180%)';
-            }
+            quantumScroll.style.opacity = Math.min(scrollY / 300, 1);
+            quantumScroll.classList.toggle('show', scrollY > 100);
         });
-    
-        // تأثيرات الظهور
-        window.addEventListener('load', () => {
-            document.querySelector('.container').style.opacity = 1;
-            anime({
-                targets: '.audio-card',
-                opacity: [0, 1],
-                translateY: [50, 0],
-                delay: anime.stagger(100),
-                duration: 1000,
-                easing: 'easeOutExpo'
-            });
-        });
-    
-        // تفاعل زر العودة
-        scrollTopBtn.addEventListener('click', () => {
+
+        quantumScroll.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
+
+        // تفاعل الجسيمات مع الماوس
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelector('.particles');
+            particles.style.transform = `translateX(${e.clientX/50}px) translateY(${e.clientY/50}px)`;
+        });
+
+        // تأثيرات التحميل الكمي
+        window.addEventListener('load', () => {
+            document.body.style.opacity = 1;
+            setTimeout(() => {
+                document.querySelectorAll('.audio-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.transform = 'translateY(0)';
+                        card.style.opacity = 1;
+                    }, index * 200);
+                });
+            }, 500);
+        });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    </body>
-    </html>
+</body>
+</html>🌙
