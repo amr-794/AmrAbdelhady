@@ -562,7 +562,7 @@ audio::-webkit-media-controls-volume-slider {
             getComputedStyle(document.documentElement)
             .getPropertyValue('--primary')
             .match(/\d+/g));
-
+    
         // تفاعل حركة الماوس على البطاقات
         document.querySelectorAll('.audio-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -573,29 +573,43 @@ audio::-webkit-media-controls-volume-slider {
                 card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
-
+    
         // إدارة تشغيل الصوتيات
         const audioElements = document.querySelectorAll('audio');
         let currentAudio = null;
-
+    
         audioElements.forEach(audio => {
             audio.addEventListener('play', () => {
-                if(currentAudio) {
+                if(currentAudio && currentAudio !== audio) {
                     currentAudio.pause();
                     currentAudio.parentElement.classList.remove('active-audio');
+                    resetAudioCardStyle(currentAudio.parentElement);
                 }
                 currentAudio = audio;
                 audio.parentElement.classList.add('active-audio');
                 animateAudioCard(audio.parentElement);
             });
+    
+            audio.addEventListener('pause', () => {
+                if(currentAudio === audio) {
+                    audio.parentElement.classList.remove('active-audio');
+                    resetAudioCardStyle(audio.parentElement);
+                    currentAudio = null;
+                }
+            });
         });
-
+    
         function animateAudioCard(card) {
             card.style.transform = `translateY(-10px) scale(1.05)`;
             card.style.boxShadow = `0 0 50px ${getComputedStyle(document.documentElement)
                 .getPropertyValue('--primary')}`;
         }
-
+    
+        function resetAudioCardStyle(card) {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+        }
+    
         // إدارة التمرير
         const scrollTopBtn = document.getElementById('scrollTop');
         window.addEventListener('scroll', () => {
@@ -612,7 +626,7 @@ audio::-webkit-media-controls-volume-slider {
                 header.style.backdropFilter = 'blur(15px) saturate(180%)';
             }
         });
-
+    
         // تأثيرات الظهور
         window.addEventListener('load', () => {
             document.querySelector('.container').style.opacity = 1;
@@ -625,7 +639,7 @@ audio::-webkit-media-controls-volume-slider {
                 easing: 'easeOutExpo'
             });
         });
-
+    
         // تفاعل زر العودة
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
@@ -635,5 +649,5 @@ audio::-webkit-media-controls-volume-slider {
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-</body>
-</html>
+    </body>
+    </html>
