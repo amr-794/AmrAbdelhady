@@ -300,43 +300,13 @@
         max-width: 100%;
     }
     
-    ..video-header-mod {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            padding: 15px;
-            border-radius: 15px 15px 0 0;
-            color: white;
-        }
-
-        .video-meta-mod {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-
-        .video-actions-mod {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .video-btn-mod {
-            flex: 1;
-            padding: 8px;
-            border: none;
-            border-radius: 8px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            transition: all 0.3s;
-        }
-
-        .video-wrapper-mod {
-            position: relative;
-            padding-bottom: 56.25%;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
+    .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
     </style>
 </head>
 <body>
@@ -448,26 +418,21 @@
         <div class="video-gallery">
 
 
-                <div class="video-item">
-                <div class="video-header-mod">
-                    <h3>ما تيسر من سورة القصص</h3>
-                    <div class="video-meta-mod">
-                        <span>⏳ المدة: 4:32</span>
-                        <span>📅 24 رمضان 2025</span>
+                <div class="video-item custom-player">
+                <video class="custom-video" id="mainVideo">
+                    <source src="https://drive.google.com/uc?export=download&id=1L28Jhtso-uIh-rdoLhUoQcBpUyWFg5Rd" type="video/mp4">
+                </video>
+                
+                <div class="controls-container">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-filled" id="progressFilled"></div>
                     </div>
-                </div>
-                
-                <div class="video-wrapper-mod">
-                    <iframe src="https://drive.google.com/file/d/1L28Jhtso-uIh-rdoLhUoQcBpUyWFg5Rd/preview" 
-                            allow="autoplay; fullscreen" 
-                            style="border:none;"
-                            title="تلاوة سورة القصص"></iframe>
-                </div>
-                
-                <div class="video-actions-mod">
-                    <button class="video-btn-mod" style="background:#25ca0f;">👍 34 إعجاب</button>
-                    <button class="video-btn-mod" style="background:#0828dd;">↻ مشاركة</button>
-                    <button class="video-btn-mod" style="background:#026ae0;">💾 حفظ</button>
+                    
+                    <div class="controls-buttons">
+                        <button class="control-btn" id="playPauseBtn">▶</button>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+                        <span class="time-display" id="timeDisplay">00:00 / 04:32</span>
+                    </div>
                 </div>
                 </div>
 
@@ -523,6 +488,58 @@
             sections.forEach((section) => {
                 observer.observe(section);
             });
+        });
+
+
+
+        const video = document.getElementById('mainVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFilled = document.getElementById('progressFilled');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        // التحكم في التشغيل/الإيقاف
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.innerHTML = '⏸';
+            } else {
+                video.pause();
+                playPauseBtn.innerHTML = '▶';
+            }
+        });
+
+        // التحكم في شريط التقدم
+        video.addEventListener('timeupdate', () => {
+            const progress = (video.currentTime / video.duration) * 100;
+            progressFilled.style.width = `${progress}%`;
+            
+            // تحديث الوقت
+            const formatTime = (seconds) => {
+                const minutes = Math.floor(seconds / 60);
+                seconds = Math.floor(seconds % 60);
+                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            };
+            
+            timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        });
+
+        // النقر على شريط التقدم
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pos * video.duration;
+        });
+
+        // التحكم في الصوت
+        volumeSlider.addEventListener('input', (e) => {
+            video.volume = e.target.value;
+        });
+
+        // تأثيرات عند التحميل
+        video.addEventListener('loadedmetadata', () => {
+            video.volume = 1;
         });
     </script>
 </body>
