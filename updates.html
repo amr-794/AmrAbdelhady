@@ -292,21 +292,84 @@
             }
         }
 
-        .video-wrapper {
-        position: relative;
-        padding-bottom: 56.25%; /* نسبة 16:9 */
-        height: 0;
-        overflow: hidden;
-        max-width: 100%;
-    }
-    
-    .video-wrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+        .custom-player {
+            --player-primary: #25ca0ff3;
+            --player-secondary: #0828ddcc;
+            --player-accent: #026ae0cb;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .custom-player .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+
+        .custom-player iframe {
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .custom-controls {
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: var(--player-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .control-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: #444;
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress-filled {
+            position: absolute;
+            height: 100%;
+            background: var(--player-primary);
+            width: 45%;
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .time-display {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* إزالة أي عناصر خارجية */
+        .video-actions-mod .video-btn-mod[onclick] {
+            display: none !important;
+            }
     </style>
 </head>
 <body>
@@ -418,20 +481,28 @@
         <div class="video-gallery">
 
 
-                <div class="video-item custom-player">
-                <video class="custom-video" id="mainVideo">
-                    <source src="https://drive.google.com/uc?export=download&id=1L28Jhtso-uIh-rdoLhUoQcBpUyWFg5Rd" type="video/mp4">
-                </video>
+                <div class="custom-player">
+                <div class="video-wrapper">
+                    <iframe src="https://drive.google.com/file/d/1L28Jhtso-uIh-rdoLhUoQcBpUyWFg5Rd/preview" 
+                            allow="autoplay" 
+                            title="تلاوة سورة القصص"></iframe>
+                </div>
                 
-                <div class="controls-container">
-                    <div class="progress-bar" id="progressBar">
-                        <div class="progress-filled" id="progressFilled"></div>
+                <div class="custom-controls">
+                    <button class="control-btn">▶️</button>
+                    <div class="progress-bar">
+                        <div class="progress-filled"></div>
                     </div>
-                    
-                    <div class="controls-buttons">
-                        <button class="control-btn" id="playPauseBtn">▶</button>
-                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-                        <span class="time-display" id="timeDisplay">00:00 / 04:32</span>
+                    <span class="time-display">4:32 / 0:00</span>
+                    <button class="control-btn">🔊</button>
+                    <button class="control-btn">⚙️</button>
+                </div>
+                
+                <div class="video-meta-mod">
+                    <h3>ما تيسر من سورة القصص</h3>
+                    <div style="display: flex; justify-content: space-between; color: #fff; padding: 0 15px;">
+                        <span>رمضان 2025 24</span>
+                        <span>34 ❤️</span>
                     </div>
                 </div>
                 </div>
@@ -492,54 +563,14 @@
 
 
 
-        const video = document.getElementById('mainVideo');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progressFilled = document.getElementById('progressFilled');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const timeDisplay = document.getElementById('timeDisplay');
-
-        // التحكم في التشغيل/الإيقاف
-        playPauseBtn.addEventListener('click', () => {
-            if (video.paused) {
-                video.play();
-                playPauseBtn.innerHTML = '⏸';
-            } else {
-                video.pause();
-                playPauseBtn.innerHTML = '▶';
-            }
-        });
-
-        // التحكم في شريط التقدم
-        video.addEventListener('timeupdate', () => {
-            const progress = (video.currentTime / video.duration) * 100;
-            progressFilled.style.width = `${progress}%`;
-            
-            // تحديث الوقت
-            const formatTime = (seconds) => {
-                const minutes = Math.floor(seconds / 60);
-                seconds = Math.floor(seconds % 60);
-                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            };
-            
-            timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
-        });
-
-        // النقر على شريط التقدم
+           // تفاعلية المشغل المخصص
+        const progressBar = document.querySelector('.progress-bar');
+        const progressFilled = document.querySelector('.progress-filled');
+        
         progressBar.addEventListener('click', (e) => {
             const rect = progressBar.getBoundingClientRect();
             const pos = (e.clientX - rect.left) / rect.width;
-            video.currentTime = pos * video.duration;
-        });
-
-        // التحكم في الصوت
-        volumeSlider.addEventListener('input', (e) => {
-            video.volume = e.target.value;
-        });
-
-        // تأثيرات عند التحميل
-        video.addEventListener('loadedmetadata', () => {
-            video.volume = 1;
+            progressFilled.style.width = `${pos * 100}%`;
         });
     </script>
 </body>
