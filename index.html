@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amr Abdelhady</title>
-  <!-- تضمين مكتبة Font Awesome للأيقونات -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- تضمين خطوط Roboto, Great Vibes وCairo -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Great+Vibes&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* إعادة تعيين الإعدادات الأساسية */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Roboto', sans-serif;
       background: #111;
@@ -22,12 +20,12 @@
       overflow-x: hidden;
       line-height: 1.6;
     }
+
     a {
       text-decoration: none;
       color: inherit;
     }
 
-    /* خلفية Canvas الديناميكية */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -37,136 +35,36 @@
       z-index: -1;
     }
 
-
-
-
-
-
-     /* تنسيق زر تبديل الوضع */
-     #theme-toggle {
-      position :absolute;
-    top: 45px;
-    right: 20px;
-    z-index: 1000;
-    background: #f8b400;
-    color: #111;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-    box-shadow: 0 0 15px rgba(248, 180, 0, 0.7);
-}
-
-    #theme-toggle:hover {
-        transform: scale(1.1);
-    }
-
-    
-
-    .light-mode header {
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, #111 100%), url('nature-light.jpg') no-repeat center center/cover;
-    }
-
-    
-
-
-/* الأسهم التي تشير للزر */
-.arrow { 
-    position: absolute;
-    color: #f8b400;
-    font-size: 2rem;
-    animation: bounce 1.5s infinite;
-    z-index: 100;
-}
-
-.arrow:nth-child(2) { top: 13px; right: 36px; transform: rotate(90deg); }
-
-
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-
-
-
-
-
-/* أيقونة النجمة وأيقونة التميز */
-.portfolio-item:first-child {
-    position: relative;
-}
-.portfolio-item:first-child::before {
-    content: '\f005'; /* أيقونة نجمة من FontAwesome */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 2rem;
-    color: rgb(0, 255, 255);
-    text-shadow: 0 0 10px rgb(0, 4, 255);
-}
-
-
-
-
-
-
-    /* قسم الرأس مع صورة منظر طبيعي وتدرج يتلاشى من الأسفل */
     header {
       height: 85vh;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: center;
-      /* الخلفية: صورة المنظر الطبيعي مع تدرج يتلاشى إلى لون الخلفية (#111) */
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, #111 100%), url('nature.jpg') no-repeat center center/cover;
-      transition: transform 0.5s ease, opacity 0.5s ease;
-      transform-origin: top;
-      padding: 0 20px;
+      padding-top: 20px;
+      background: #00000052;
+  
     }
-    /* تأثير طي الورقة/السوستة عند التمرير */
-    header.folded {
-      transform: perspective(1000px) rotateX(-20deg);
-      opacity: 0.9;
+    
+    
+
+   
+    header img {
+      max-width: 80%;
+      max-height: 60vh;
+      height: auto;
+      width: auto;
     }
-    header h1 {
-      font-size: 4rem;
-      letter-spacing: 3px;
-      color: #fff;
-      opacity: 0;
-      transform: translateY(-100px);
-      animation: fadeInDown 1.5s ease-out forwards;
-      /* تأثير منير للنص */
-      text-shadow: 0 0 10px #f8b400, 0 0 20px #f8b400;
-    }
-    @keyframes fadeInDown {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* سهم النزول منير */
-    .down-arrow {
-      margin-top: 20px;
-      font-size: 2rem;
-      color: #f8b400;
-      animation: bounce 1.5s infinite;
-      cursor: pointer;
-      text-shadow: 0 0 10px #f8b400;
-    }
+
+    
+
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(10px); }
     }
 
-    /* قسم التوقيع (الاسم والنبذة) */
     .signature {
       text-align: center;
       margin: 30px 20px;
@@ -175,6 +73,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
+
     .signature h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 4rem;
@@ -184,18 +83,19 @@
       text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
       margin-bottom: 10px;
     }
+
     .signature p {
       font-size: 1.2rem;
       color: #ff8800;
       text-shadow: 1px 1px 4px rgb(255, 0, 0);
     }
 
-    /* قسم الملف الشخصي */
     .profile {
       padding: 60px 20px;
       text-align: center;
       position: relative;
     }
+
     .profile .profile-container {
       max-width: 300px;
       margin: 0 auto;
@@ -203,50 +103,49 @@
       overflow: hidden;
       transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
+
     .profile .profile-container img {
       width: 100%;
       display: block;
     }
+
     .profile .profile-container:hover {
       transform: scale(1.15) rotate(7deg);
       box-shadow: 0 0 30px rgba(248,180,0,0.7);
     }
+
     .profile p {
       margin-top: 20px;
       font-size: 1.4rem;
       color: #f8b400;
-      transition: color 0.3s ease;
-    }
-    .profile:hover p {
-      color: #fff;
     }
 
-    /* روابط التواصل الاجتماعي باستخدام Font Awesome */
     .social-icons {
       margin-top: 30px;
       display: flex;
       justify-content: center;
       gap: 20px;
     }
+
     .social-icons a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       width: 50px;
       height: 50px;
-      border-radius: 50%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       background: #222;
+      border-radius: 50%;
       color: #eee;
       font-size: 1.5rem;
       transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
     }
+
     .social-icons a:hover {
       transform: scale(1.2);
       background: #f8b400;
       color: #111;
     }
 
-    /* قسم المشاريع (Portfolio) مع 6 كروت */
     .portfolio {
       padding: 60px 20px;
       display: flex;
@@ -254,61 +153,55 @@
       justify-content: center;
       gap: 30px;
     }
+
     .portfolio-item {
       width: 300px;
-      height: auto;
-      background: rgba(0, 111, 145, 0.884); /* لون ذهبي منير */
+      background: rgba(0, 111, 145, 0.884);
       border-radius: 10px;
       overflow: hidden;
-      position: relative;
       padding: 20px;
-      transition: transform 0.6s ease, box-shadow 0.4s ease, filter 0.4s ease;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      transition: transform 0.6s ease, box-shadow 0.4s ease, filter 0.4s ease;
     }
+
     .portfolio-item:hover {
       transform: translateY(-10px) scale(1.05);
       box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       filter: brightness(1.1);
-      background: rgba(2, 74, 92, 0.4);
     }
-    .portfolio-item:active {
-      transform: scale(0.95);
-    }
-    /* محتويات الكارت: العنوان والتفاصيل بخط عربي مميز (Cairo) بلون فضي لامع */
-    .portfolio-item .card-content {
-      font-family: 'Cairo', sans-serif;
+
+    .card-content {
       text-align: center;
+      font-family: 'Cairo', sans-serif;
     }
-    .portfolio-item .card-content h3 {
+
+    .card-content h3 {
       font-size: 1.6rem;
       margin-bottom: 10px;
-      color: #f7d200; /* فضي */
-      font-weight: 700;
+      color: #f7d200;
       text-shadow: 0 0 5px #580202;
     }
-    .portfolio-item .card-content p {
+
+    .card-content p {
       font-size: 1rem;
-      color: #00d458; /* فضي فاتح */
-      line-height: 1.4;
+      color: #00d458;
       text-shadow: 0 0 3px #c79407;
     }
-    /* حركة بهلوانية عند الضغط على الكروت */
+
     @keyframes acrobatic {
       0% { transform: translateY(0) rotate(0deg); }
       30% { transform: translateY(-30px) rotate(0deg); }
       50% { transform: translateY(-50px) rotate(430deg); }
       70% { transform: translateY(-30px) rotate(90deg); }
       100% { transform: translateY(0) rotate(9deg); }
-      
-      
     }
+
     .acrobatic-animation {
       animation: acrobatic 1s ease-out forwards;
       transform: scale(5);
     }
 
-    /* زر العودة للأعلى */
     #back-to-top {
       position: fixed;
       bottom: 30px;
@@ -327,29 +220,29 @@
       transition: opacity 0.3s ease, visibility 0.3s ease;
       z-index: 10;
     }
+
     #back-to-top.show {
       opacity: 1;
       visibility: visible;
     }
 
-    /* قسم التذييل */
     footer {
       padding: 20px;
       text-align: center;
       background: #222;
     }
+
     footer p {
       font-size: 1rem;
       color: #aaa;
     }
 
-    /* استجابة التصميم للأجهزة الصغيرة */
     @media (max-width: 768px) {
       header {
         height: 70vh;
       }
-      header h1 {
-        font-size: 2.5rem;
+      header img {
+        max-width: 90%;
       }
       .signature h2 {
         font-size: 2.5rem;
@@ -358,134 +251,39 @@
         width: 90%;
       }
     }
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    transition: background-color 0.5s ease, color 0.5s ease;
-    background-color: #121212;
-    color: white;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #1a1a1a;
-}
-
-.name-quote h1 {
-    font-size: 2em;
-    color: #ffd700;
-}
-
-.name-quote p {
-    font-size: 1.2em;
-    color: #ccc;
-}
-
-.theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5em;
-    color: #fff;
-    transition: transform 0.3s ease;
-}
-
-.cards {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-}
-
-.card {
-    background-color: #444;
-    padding: 20px;
-    width: 200px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: #fff;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.card:hover {
-    background-color: #ffd700;
-    color: #121212;
-    transform: scale(1.05);
-}
-
-/* تأثير Scroll سلس */
-.scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
   </style>
 </head>
 <body>
 
-
-
-<!-- إضافة زر تبديل الوضع -->
-<button id="theme-toggle" title="تبديل الوضع">
-    <i class="fa-solid fa-lightbulb"></i>
-</button>
-
-
-<!-- الأسهم التي تشير إلى زر التبديل -->
-<i class="arrow fas fa-arrow-down"></i>
-
-
-
-
-  <!-- خلفية Canvas الديناميكية -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- قسم الرأس -->
   <header id="main-header">
-    <h1>Amoora</h1>
-    <div class="down-arrow" onclick="scrollDown();">
-      <i class="fa-solid fa-angle-down"></i>
+    <img src="logo.png" alt="شعار Amoora">
+    
+      
     </div>
   </header>
 
-  <!-- قسم التوقيع (الاسم والنبذة) -->
   <section class="signature">
     <h2>Amr Abdelhady</h2>
     <p>اللهم لا تؤاخذني بما يقولون واغفر لي ما لا يعلمون واجعلني خيرا مما يظنون</p>
   </section>
-  
-  <!-- قسم الملف الشخصي -->
+
   <section class="profile">
     <div class="profile-container">
       <img src="profile.jpg" alt="صورة الملف الشخصي">
     </div>
     <p>Welcome</p>
     <div class="social-icons">
-      <a href="https://www.facebook.com/qr?id=61551830860947" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://www.instagram.com/amr_abdelhady_7_9_4/profilecard/?igsh=amk4ZWFqdjlqdmcz" title="إنستجرام"><i class="fab fa-instagram"></i></a>
-      <a href="mailto:amrabdelhady794@gmail.com" title="جيميل"><i class="fa fa-envelope"></i></a>
-      <a href="https://wa.me/+201115025600" title="واتساب"><i class="fab fa-whatsapp"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fa fa-envelope"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
     </div>
   </section>
 
-  <!-- قسم المشاريع (Portfolio) مع 6 كروت -->
   <section class="portfolio">
-    <!-- كل كارت يحتوي على عنوان وتفاصيل باستخدام data-href لتحديد رابط المشروع -->
+    <!-- كروت المشاريع هنا كما هي -->
     <div class="portfolio-item" data-href="Quran me/Me/index.html">
       <div class="card-content">
         <h3>القرآن الكريم بصوتي</h3>
@@ -524,129 +322,100 @@ body {
     </div>
   </section>
 
-  <!-- زر العودة للأعلى -->
   <div id="back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
   </div>
 
-  <!-- قسم التذييل -->
   <footer>
     <p>© 2025 Amoora💖</p>
   </footer>
 
   <script>
-   /************************************
- * خلفية Canvas مع جسيمات متحركة محسنة *
- ************************************/
-const canvas = document.getElementById("bg-canvas");
-const ctx = canvas.getContext("2d");
-let width = (canvas.width = window.innerWidth);
-let height = (canvas.height = window.innerHeight);
-let particles = [];
-const particleCount = 150; // تقليل العدد قليلاً لتحسين الأداء
-const colors = ["rgba(0,150,255,0.8)", "rgba(255,255,0,0.8)", "rgba(0,255,255,0.8)"];
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+    let particles = [];
+    const particleCount = 150;
+    const colors = ["rgba(0,150,255,0.8)", "rgba(255,255,0,0.8)", "rgba(0,255,255,0.8)"];
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
 
-// تحسين دقة الرسم
-const dpr = window.devicePixelRatio || 1;
-canvas.width = width * dpr;
-canvas.height = height * dpr;
-ctx.scale(dpr, dpr);
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = (Math.random() - 0.5) * 1.5;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > width) this.x = 0;
+        if (this.x < 0) this.x = width;
+        if (this.y > height) this.y = 0;
+        if (this.y < 0) this.y = height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
 
-class Particle {
-  constructor() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-    this.size = Math.random() * 3 + 1;
-    this.speedX = (Math.random() - 0.5) * 1.5; // تقليل السرعة لتحسين السلاسة
-    this.speedY = (Math.random() - 0.5) * 1.5;
-    this.color = colors[Math.floor(Math.random() * colors.length)];
-  }
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
 
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
 
-    if (this.x > width) this.x = 0;
-    if (this.x < 0) this.x = width;
-    if (this.y > height) this.y = 0;
-    if (this.y < 0) this.y = height;
-  }
+    window.addEventListener("resize", () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+      createParticles();
+    });
 
-  draw() {
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
+    createParticles();
+    animateParticles();
 
-// إنشاء الجسيمات
-function createParticles() {
-  particles = [];
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-}
-
-// تحديث وتحريك الجسيمات بسلاسة
-function animateParticles() {
-  ctx.clearRect(0, 0, width, height);
-  particles.forEach((p) => {
-    p.update();
-    p.draw();
-  });
-
-  requestAnimationFrame(animateParticles);
-}
-
-// تحسين إعادة التهيئة عند تغيير حجم النافذة
-window.addEventListener("resize", () => {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  ctx.scale(dpr, dpr);
-  createParticles();
-});
-
-// بدء الرسوم المتحركة
-createParticles();
-animateParticles();
-
-    // دالة التمرير للأسفل عند النقر على سهم النزول
     function scrollDown() {
       window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
     }
 
-    /************************************
-     * تفعيل زر العودة للأعلى وتأثير طي الترويسة عند التمرير
-     ************************************/
     window.addEventListener('scroll', () => {
       const backToTop = document.getElementById('back-to-top');
+      const header = document.getElementById('main-header');
       if (window.scrollY > window.innerHeight) {
         backToTop.classList.add('show');
       } else {
         backToTop.classList.remove('show');
       }
-      
-      // تطبيق تأثير طي الورقة/السوستة على الترويسة عند التمرير
-      const header = document.getElementById('main-header');
-      if (window.scrollY > 50) {
-        header.classList.add('folded');
-      } else {
-        header.classList.remove('folded');
-      }
+      header.classList.toggle('folded', window.scrollY > 50);
     });
 
     document.getElementById('back-to-top').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    /************************************
-     * حركة بهلوانية عند الضغط على الكروت ثم الانتقال
-     ************************************/
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    portfolioItems.forEach(item => {
+    document.querySelectorAll('.portfolio-item').forEach(item => {
       item.addEventListener('click', function(e) {
         e.preventDefault();
         const targetUrl = this.getAttribute('data-href');
@@ -656,50 +425,6 @@ animateParticles();
         }, 1100);
       });
     });
-
-
-
-
-
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const themeIcon = themeToggle.querySelector('i');
-
-    themeToggle.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
-        if (body.classList.contains('light-mode')) {
-            themeIcon.classList.replace('fa-lightbulb', 'fa-moon');
-        } else {
-            themeIcon.classList.replace('fa-moon', 'fa-lightbulb');
-        }
-    });
-
-    // تحسين تحميل الصفحة
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("loaded");
-});
-
-// كشف العناصر أثناء التمرير (Scroll Reveal)
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
-
-// إضافة تأثير التمرير السلس
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", (e) => {
-        e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute("href"));
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-});
-
-
   </script>
 
 </body>
